@@ -5,11 +5,16 @@ obtain(['./src/loadCell.js'], ({ Scale })=> {
 
   var scale = new Scale();
 
-  scale.setReadInterval(500);
+  scale.setReadInterval(50);
+  scale.setPrecision(1);
 
-  scale.onRead = ()=> {
+  /*scale.onRead = ()=> {
     console.log(`New value is ${scale.value}`);
-  };
+  };*/
+
+  setInterval(()=>[
+    console.log(`Current value is ${scale.value}`),
+  ], 1000);
 
   exports.app.start = ()=> {
     console.log('started');

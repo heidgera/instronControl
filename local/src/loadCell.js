@@ -1,15 +1,19 @@
-obtain(['µ/serial.js', 'µ/utilities.js'], ({ Serial }, { averager })=> {
+obtain(['µ/serial.js', 'µ/utilities.js'], ({ Serial }, { averager, round })=> {
   exports.Scale = function () {
     var serial = new Serial();
     this.average = new averager(10);
 
     this.units = '';
 
+    var prec = 2;
+
     this.onRead = ()=> {};
 
+    this.setPrecision = prc=> prec = prc;
+
     Object.defineProperty(this, 'value', {
-      get: ()=>this.average.ave,
-      set: this.average.addSample,
+      get: ()=>round(this.average.ave, prec),
+      set: (val)=>this.average.addSample(val),
     });
 
     serial.open('usbserial', 9600);
@@ -28,7 +32,7 @@ obtain(['µ/serial.js', 'µ/utilities.js'], ({ Serial }, { averager })=> {
 
     this.setReadInterval = (time)=> {
       clearInterval(readInterval);
-      setInterval(requestRead, time);
+      setInterval(this.requestRead, time);
     };
 
     this.requestRead = ()=> {
