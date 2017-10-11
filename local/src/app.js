@@ -1,22 +1,15 @@
 'use strict';
 
-obtain(['µ/serial.js'], ({ Serial })=> {
+obtain(['./src/loadCell.js'], ({ Scale })=> {
   exports.app = {};
 
-  var serial = new Serial();
+  var scale = new Scale();
 
-  serial.open('usbserial', 9600);
+  scale.setReadInterval(500);
 
-  serial.onMessage = (data)=> {
-    var pol = (data[6] == '+') ? 1 : -1;
-    console.log(pol * parseFloat(data.substring(7, 14)));
-    var units = data.substr(14, 15);
+  scale.onRead = ()=> {
+    console.log(`New value is ${scale.value}`);
   };
-
-  setInterval(()=> {
-    serial.write('R');
-    //console.log('Sent!');
-  }, 500);
 
   exports.app.start = ()=> {
     console.log('started');
