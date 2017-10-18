@@ -8,7 +8,7 @@ obtain(['onoff'], ({ Gpio })=> {
 
     signals[0].watch((err, value)=> {
       if (!err) {
-        if (signals[1].readSync) count++;
+        if (signals[1].readSync()) count++;
         else count--;
       }
     });
