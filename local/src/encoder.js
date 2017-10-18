@@ -5,23 +5,26 @@ obtain(['onoff'], ({ Gpio })=> {
       get: ()=>count,
     });
     let signals = [new Gpio(pinA, 'in', 'rising'), new Gpio(pinB, 'in')];
+    let state = [0, 0];
 
-    signals[0].watch((err, value)=> {
+    /*signals[0].watch((err, value)=> {
       if (!err) {
         if (signals[1].readSync()) count++;
         else count--;
       }
-    });
+    });*/
 
-    /*signals.forEach((sig, i) => {
+    signals.forEach((sig, i) => {
       sig.watch((err, value)=> {
         if (!err) {
-          let which = (i + 1) % 2;
-          if (signals[which].readSync() == which) count++;
-          else count--;
+          state[i] = signals[which].readSync();
+          if (i == 0 && state[0]) {
+            if (state[1]) count++;
+            else count--;
+          }
         }
       });
-    });*/
+    });
 
     this.reset = ()=> {
       count = 0;
