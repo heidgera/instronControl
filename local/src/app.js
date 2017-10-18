@@ -3,7 +3,7 @@
 obtain(['./src/encoder.js', './src/loadCell.js'], ({ Encoder }, { Scale })=> {
   exports.app = {};
 
-  var encoder = new Encoder(17, 27);
+  //var encoder = new Encoder(17, 27);
 
   /*var scale = new Scale();
 

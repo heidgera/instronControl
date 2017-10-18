@@ -1,4 +1,4 @@
-obtain(['onoff'], (onoff, { averager, round })=> {
+obtain(['onoff'], (onoff)=> {
   exports.Encoder = function (pinA, pinB) {
     var count = 0;
     Object.defineProperty(this, 'count', {
