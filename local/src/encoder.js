@@ -4,7 +4,7 @@ obtain(['onoff'], ({ Gpio })=> {
     Object.defineProperty(this, 'count', {
       get: ()=>count,
     });
-    let signals = [new Gpio(pinA, 'in', 'rising'), new Gpio(pinB, 'in')];
+    let signals = [new Gpio(pinA, 'in', 'rising'), new Gpio(pinB, 'in', 'rising')];
     let state = [0, 0];
 
     /*signals[0].watch((err, value)=> {
