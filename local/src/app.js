@@ -28,7 +28,9 @@ obtain(['./src/encoder.js', './src/loadCell.js'], ({ Encoder }, { Scale })=> {
     document.onkeyup = (e)=> {
       if (e.which == 27) {
         var electron = require('electron');
-        process.kill(process.pid, 'SIGINT');
+        //process.kill(process.pid, 'SIGINT');
+        encoder.close();
+        process.exit();
       } else if (e.which == 73 && e.getModifierState('Control') &&  e.getModifierState('Shift')) {
         remote.getCurrentWindow().toggleDevTools();
       }
