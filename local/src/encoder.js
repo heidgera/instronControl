@@ -1,4 +1,4 @@
-obtain(['onoff'], (onoff)=> {
+obtain(['onoff'], ({ Gpio })=> {
   exports.Encoder = function (pinA, pinB) {
     var count = 0;
     Object.defineProperty(this, 'count', {
