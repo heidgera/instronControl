@@ -17,7 +17,7 @@ obtain(['onoff'], ({ Gpio })=> {
     signals.forEach((sig, i) => {
       sig.watch((err, value)=> {
         if (!err) {
-          state[i] = signals[which].readSync();
+          state[i] = sig.readSync();
           if (i == 0 && state[0]) {
             if (state[1]) count++;
             else count--;
