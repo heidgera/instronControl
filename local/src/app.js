@@ -1,22 +1,24 @@
 'use strict';
 
-obtain(['./src/loadCell.js'], ({ Scale })=> {
+obtain(['./src/encoder.js', './src/loadCell.js'], ({ Encoder }, { Scale })=> {
   exports.app = {};
 
-  var scale = new Scale();
+  var encoder = new Encoder(17, 27);
+
+  /*var scale = new Scale();
 
   scale.setReadInterval(50);
-  scale.setPrecision(1);
+  scale.setPrecision(1);*/
 
   /*scale.onRead = ()=> {
     console.log(`New value is ${scale.value}`);
   };*/
 
-  setInterval(()=>[
-    console.log(`Current value is ${scale.value}`),
-  ], 1000);
-
   exports.app.start = ()=> {
+    setInterval(()=> {
+      µ('#outer').textContent = encoder.count;
+    }, 50);
+
     console.log('started');
 
     document.onkeypress = (e)=> {
@@ -26,9 +28,16 @@ obtain(['./src/loadCell.js'], ({ Scale })=> {
     document.onkeyup = (e)=> {
       if (e.which == 27) {
         var electron = require('electron');
-        electron.remote.process.exit();
+        process.kill(process.pid, 'SIGINT');
+      } else if (e.which == 73 && e.getModifierState('Control') &&  e.getModifierState('Shift')) {
+        remote.getCurrentWindow().toggleDevTools();
       }
     };
+
+    process.on('SIGINT', ()=> {
+      //cleanup funcitons here
+      process.nextTick(function () { process.exit(0); });
+    });
   };
 
   provide(exports);

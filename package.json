@@ -17,9 +17,11 @@
     "electron": "1.7.5"
   },
   "dependencies": {
+    "electron": "1.7.5",
     "express": "^4.15.4",
     "path": "^0.12.7",
     "serialport": "^5.0.0",
-    "ws": "^3.1.0"
+    "ws": "^3.1.0",
+    "onoff": "^1.1.8"
   }
 }
