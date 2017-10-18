@@ -19,7 +19,7 @@ obtain(['onoff'], ({ Gpio })=> {
         if (!err) {
           sig.state = value;
           if (i == 0 && sig.state) {
-            if (signals[0].state) count++;
+            if (signals[1].state) count++;
             else count--;
           }
         }
