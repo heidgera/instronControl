@@ -36,6 +36,7 @@ obtain(['./src/encoder.js', './src/loadCell.js'], ({ Encoder }, { Scale })=> {
 
     process.on('SIGINT', ()=> {
       //cleanup funcitons here
+      encoder.close();
       process.nextTick(function () { process.exit(0); });
     });
   };
