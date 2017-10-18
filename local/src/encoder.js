@@ -4,16 +4,16 @@ obtain(['onoff'], ({ Gpio })=> {
     Object.defineProperty(this, 'count', {
       get: ()=>count,
     });
-    let signals = [new Gpio(pinA, 'in', 'rising'), new Gpio(pinB, 'in', 'rising')];
+    let signals = [new Gpio(pinA, 'in', 'rising'), new Gpio(pinB, 'in')];
 
-    /*signals[0].watch((err, value)=> {
+    signals[0].watch((err, value)=> {
       if (!err) {
         if (signals[1].readSync) count++;
         else count--;
       }
-    });*/
+    });
 
-    signals.forEach((sig, i) => {
+    /*signals.forEach((sig, i) => {
       sig.watch((err, value)=> {
         if (!err) {
           let which = (i + 1) % 2;
@@ -21,7 +21,7 @@ obtain(['onoff'], ({ Gpio })=> {
           else count--;
         }
       });
-    });
+    });*/
 
     this.reset = ()=> {
       count = 0;
