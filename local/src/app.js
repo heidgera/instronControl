@@ -2,15 +2,15 @@
 
 var process = require('electron').remote.process;
 
-obtain(['./src/backend', './src/interface/button.js', './src/interface/dropdown.js'], ({ Encoder, Scale }, Button, Dropdown)=> {
+obtain(['./src/interface/button.js', './src/interface/dropdown.js'/*, './src/backend'*/], (Button, Dropdown/*, { Encoder, Scale }*/)=> {
   exports.app = {};
 
   //var encoder = new Encoder(17, 27);
 
-  var scale = new Scale();
+  //var scale = new Scale();
 
-  scale.setReadInterval(50);
-  scale.setPrecision(1);
+  //scale.setReadInterval(50);
+  //scale.setPrecision(1);
 
   /*scale.onRead = ()=> {
     console.log(`New value is ${scale.value}`);

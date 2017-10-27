@@ -4,7 +4,7 @@ obtain(['onoff'], ({ Gpio })=> {
     Object.defineProperty(this, 'count', {
       get: ()=>count,
     });
-    let signals = [new Gpio(pinA, 'in', 'both'), new Gpio(pinB, 'in', 'both')];
+    //let signals = [new Gpio(pinA, 'in', 'both'), new Gpio(pinB, 'in', 'both')];
     let state = [0, 0];
 
     /*signals[0].watch((err, value)=> {
@@ -14,15 +14,15 @@ obtain(['onoff'], ({ Gpio })=> {
       }
     });*/
 
-    var gpio = require('rpi-gpio');
+    /*var gpio = require('rpi-gpio');
 
     gpio.on('change', function (channel, value) {
         console.log('Channel ' + channel + ' value is now ' + value);
       });
 
-    gpio.setup(7, gpio.DIR_IN, gpio.EDGE_BOTH);
+    gpio.setup(7, gpio.DIR_IN, gpio.EDGE_BOTH);*/
 
-    signals.forEach((sig, i) => {
+    /*signals.forEach((sig, i) => {
       sig.watch((err, value)=> {
         if (!err) {
           sig.state = value;
@@ -32,14 +32,14 @@ obtain(['onoff'], ({ Gpio })=> {
           }
         }
       });
-    });
+    });*/
 
     this.reset = ()=> {
       count = 0;
     };
 
     this.close = ()=> {
-      signals.forEach(signal => signal.unexport());
+      //signals.forEach(signal => signal.unexport());
     };
   };
 });

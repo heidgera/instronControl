@@ -1,0 +1,57 @@
+:host {
+  --font-size: 1em;
+  --padding-size: .5em;
+  --font-color: #fff;
+  --background-color: #77f;
+  --border-radius: 2px;
+
+  display: inline-block;
+  font-size: var(--font-size);
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  min-width: 5em;
+  height: 1em;
+  box-shadow: 0px 2px 2px rgba(0,0,0,.5);
+  color: var(--font-color);
+  padding: var(--padding-size);
+  overflow: hidden;
+}
+
+:host([open]){
+  /*height: auto;*/
+}
+
+.tray {
+  color: var(--font-color);
+  padding: var(--padding-size);
+  font-size: var(--font-size);
+  line-height: calc(var(--font-size) * 1.5);
+  max-height: calc(var(--font-size) * 15);
+  min-width: inherit;
+  background-color: var(--background-color);
+
+  overflow-y: scroll;
+
+  border-radius: var(--border-radius);
+  position: absolute;
+  margin-left: calc(-1 * var(--padding-size));
+  margin-top: calc(-1 * var(--padding-size));
+  height: auto;
+  display: none;
+}
+
+:host([open]) .tray {
+  height: auto;
+  display: block;
+  z-index: 1000;
+}
+
+div ::slotted(drop-opt) {
+  display: block;
+  text-align: right;
+}
+
+div ::slotted(drop-opt[selected]::before) {
+  content: '✓';
+  float: left;
+}
