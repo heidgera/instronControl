@@ -10,7 +10,7 @@ html, body {
 	width:100%;
 	height:100%;
 	text-align: center;
-  cursor: none;
+  /*cursor: none;*/
   z-index: -100;
   overflow: hidden;
 }
