@@ -32,10 +32,16 @@ body {
   border-radius: 45vmin;
 }
 
-#track {
-  position: absolute;
-  width:10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #f00;
+drop-down {
+  --font-size: 16px;
+	--min-width: 33.3vw;
+	--background-color: #55f;
+	--font-color: #fff;
+}
+
+but-ton {
+  --font-size: 16px;
+	--min-width: 33.3vw;
+	--background-color: #55f;
+	--font-color: #fff;
 }

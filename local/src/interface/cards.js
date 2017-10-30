@@ -29,26 +29,11 @@ obtain([], ()=> {
 
         this.root = _this.attachShadow({ mode: 'open' });
 
-        this.root.innerHTML = `<style> @import "${dir}/button.css";</style>`;
+        this.root.innerHTML = `<style> @import "${dir}/cards.css";</style>`;
 
         _this.display = µ('+slot', _this.root);
 
         _this.onPress = ()=> { console.log('pressed button');};
-
-        _this.onmousedown = (e)=> {
-          e.preventDefault();
-          _this.pressed = true;
-        };
-
-        document.addEventListener('mouseup', (e)=> {
-          e.preventDefault();
-          _this.pressed = false;
-        });
-
-        _this.onmouseup = (e)=> {
-          e.preventDefault();
-          if (_this.pressed && !_this.disabled) _this.onPress();
-        };
       };
     }
 

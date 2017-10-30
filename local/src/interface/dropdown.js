@@ -4,13 +4,11 @@ obtain([], ()=> {
     if (__dirname) dir = __dirname;
     else dir = exports.src.substr(0, exports.src.lastIndexOf('/'));
 
-    window.loadCSS(dir + '/dropdown.css');
+    //window.loadCSS(dir + '/dropdown.css');
 
     class Dropdown extends HTMLElement {
       constructor(props) {
         super(props);
-
-        console.log('Y no u work?');
       }
 
       get disabled() {
@@ -27,28 +25,45 @@ obtain([], ()=> {
       }
 
       set open(val) {
-        if (val) this.setAttribute('open', '');
+        if (val && !this.disabled) this.setAttribute('open', '');
         else this.removeAttribute('open');
       }
 
+      get mobile() {
+        return (µ('|>mobile', this) == '');
+      }
+
+      set mobile(val) {
+        if (val && !this.disabled) this.setAttribute('mobile', '');
+        else this.removeAttribute('mobile');
+      }
+
       get value() {
-        return this.children(this.selectedIndex).value;
+        return this.selectedNode.value;
       }
 
       get selected() {
-        return this.children(this.selectedIndex);
+        return this.selectedNode;
       }
 
       set selected(val) {
-        this.display.innerHTML = '';
         this.selectedIndex = Array.prototype.indexOf.call(this.children, val);
-        this.display.appendChild(val.cloneNode(true));
+        if (this.selectedIndex >= 0) {
+          if (this.selectedNode) this.selectedNode.selected = false;
+          var temp = val.cloneNode(true);
+          this.root.replaceChild(temp, this.display);
+          this.display = temp;
+          this.selectedNode = val;
+          this.selectedNode.selected = true;
+          this.onSelect(this.selectedNode, this.selectedIndex);
+        }
       }
 
       addOption (text, value) {
         var newOpt = µ('+drop-opt', this);
-        newOpt.value = value;
         newOpt.textContent = text;
+        if (value) newOpt.value = value;
+        else newOpt.value = text;
         return newOpt;
       }
 
@@ -64,14 +79,14 @@ obtain([], ()=> {
 
         this.root = _this.attachShadow({ mode: 'open' });
 
-        this.root.innerHTML = `<style> @import "${dir}/dropInternal.css";</style>`;
+        this.root.innerHTML = `<style> @import "${dir}/dropdown.css";</style>`;
 
         _this.tray = µ('+div', this.root);
         _this.tray.className = 'tray';
         µ('+slot', _this.tray);
 
-        _this.display = µ('+div', this.root);
-        _this.display.className = 'display';
+        _this.display = µ('+drop-opt', _this.root);
+        _this.display.textContent = µ('|>default', this);
 
         _this.onmousedown = (e)=> {
           e.preventDefault();
@@ -85,22 +100,37 @@ obtain([], ()=> {
 
         document.addEventListener('mousedown', (e)=> {
           e.preventDefault();
-          console.log(e.target);
           if (this.open && e.target.parentElement != _this) this.open = false;
         });
 
-        _this.onSelect = (which)=> { console.log(`${which} was chosen`);};
+        document.addEventListener('mouseup', (e)=> {
+          e.preventDefault();
+          if (e.target.pressed && e.target.parentElement && e.target.parentElement.open) {
+            e.target.parentElement.open = false;
+            e.target.parentElement.selected = e.target;
+          }
+        });
 
-        _this.onchange = ()=> {
-          _this.onSelect(_this.value);
-        };
+        _this.onSelect = (node, index)=> { console.log(`${index} was chosen`);};
 
       };
     }
 
+    var mouse = { x: 0, y: 0 };
+    var initScroll = 0;
+
     class DropOpt extends HTMLElement {
-      constructor(props) {
-        super(props);
+      constructor() {
+        super();
+      }
+
+      get selected() {
+        return (µ('|>selected', this) == '');
+      }
+
+      set selected(val) {
+        if (val) this.setAttribute('selected', '');
+        else this.removeAttribute('selected');
       }
 
       get value() {
@@ -108,24 +138,37 @@ obtain([], ()=> {
       }
 
       set value(val) {
-        if (val) this.setAttribute('open', val);
-        else this.removeAttribute('open');
+        if (val) this.setAttribute('value', val);
+        else this.removeAttribute('value');
       }
 
       connectedCallback() {
         //register events, check contents, etc.
         var _this = this;
 
-        _this.onclick = ()=> {
-          _this.parentElement.open = false;
-          _this.parentElement.selected = _this;
+        _this.onmousedown = (e)=> {
+          e.preventDefault();
+          _this.pressed = true;
+          if (_this.parentElement && _this.parentElement.tagName == 'DROP-DOWN') {
+            mouse.y = e.pageY;
+            initScroll = _this.parentElement.tray.scrollTop;
+            document.addEventListener('mousemove', onmousemove);
+          }
+
+          document.addEventListener('mouseup', onmouseup);
+
         };
 
-        document.addEventListener('mousedown', (e)=> {
-          e.preventDefault();
-          console.log(e.target);
-          if (this.open && e.target.parentElement != _this) this.open = false;
-        });
+        var onmousemove = (e)=> {
+          if (Math.abs(e.pageY - mouse.y) > _this.clientHeight / 2) _this.pressed = false;
+          _this.parentElement.tray.scrollTop = initScroll - (e.pageY - mouse.y);
+        };
+
+        var onmouseup = (e)=> {
+          _this.pressed = false;
+          document.removeEventListener('mouseup', onmouseup);
+          document.removeEventListener('mousemove', onmousemove);
+        };
 
       };
     }
