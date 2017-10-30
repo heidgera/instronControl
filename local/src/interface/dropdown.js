@@ -31,8 +31,18 @@ obtain([], ()=> {
         else this.removeAttribute('open');
       }
 
-      get selected() {
+      get value() {
+        return this.children(this.selectedIndex).value;
+      }
 
+      get selected() {
+        return this.children(this.selectedIndex);
+      }
+
+      set selected(val) {
+        this.display.innerHTML = '';
+        this.selectedIndex = Array.prototype.indexOf.call(this.children, val);
+        this.display.appendChild(val.cloneNode(true));
       }
 
       addOption (text, value) {
@@ -44,6 +54,8 @@ obtain([], ()=> {
 
       removeOption (opts) {
         // remove child code here.
+        if (opts && opts.index) this.removeChild(this.children(opts.index));
+        else if (opts && opts.node) this.removeChild(opts.node);
       }
 
       connectedCallback() {
@@ -58,20 +70,24 @@ obtain([], ()=> {
         _this.tray.className = 'tray';
         µ('+slot', _this.tray);
 
+        _this.display = µ('+div', this.root);
+        _this.display.className = 'display';
+
         _this.onmousedown = (e)=> {
           e.preventDefault();
           _this.pressed = true;
         };
 
-        document.addEventListener('mouseup', (e)=> {
-          e.preventDefault();
-          _this.pressed = false;
-        });
-
         _this.onmouseup = (e)=> {
           e.preventDefault();
           if (_this.pressed && !_this.disabled) _this.open = true;
         };
+
+        document.addEventListener('mousedown', (e)=> {
+          e.preventDefault();
+          console.log(e.target);
+          if (this.open && e.target.parentElement != _this) this.open = false;
+        });
 
         _this.onSelect = (which)=> { console.log(`${which} was chosen`);};
 
@@ -87,15 +103,29 @@ obtain([], ()=> {
         super(props);
       }
 
+      get value() {
+        return µ('|>value', this);
+      }
+
+      set value(val) {
+        if (val) this.setAttribute('open', val);
+        else this.removeAttribute('open');
+      }
+
       connectedCallback() {
         //register events, check contents, etc.
         var _this = this;
 
-        _this.onSelect = (which)=> { console.log(`${which} was chosen`);};
-
-        _this.onchange = ()=> {
-          _this.onSelect(_this.value);
+        _this.onclick = ()=> {
+          _this.parentElement.open = false;
+          _this.parentElement.selected = _this;
         };
+
+        document.addEventListener('mousedown', (e)=> {
+          e.preventDefault();
+          console.log(e.target);
+          if (this.open && e.target.parentElement != _this) this.open = false;
+        });
 
       };
     }

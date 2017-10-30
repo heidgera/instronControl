@@ -21,6 +21,10 @@ obtain(['./src/interface/button.js', './src/interface/dropdown.js'/*, './src/bac
       //µ('#outer').textContent = encoder.count;
     }, 50);
 
+    µ('but-ton')[0].onPress = ()=> {
+      µ('drop-down')[0].addOption('success!', 16);
+    };
+
     console.log('started');
 
     document.onkeypress = (e)=> {

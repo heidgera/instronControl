@@ -4,12 +4,13 @@
   --font-color: #fff;
   --background-color: #77f;
   --border-radius: 2px;
+  --min-width: 5em;
 
   display: inline-block;
   font-size: var(--font-size);
   background-color: var(--background-color);
   border-radius: var(--border-radius);
-  min-width: 5em;
+  min-width: var(--min-width);
   height: 1em;
   box-shadow: 0px 2px 2px rgba(0,0,0,.5);
   color: var(--font-color);
@@ -19,6 +20,10 @@
 
 :host([open]){
   /*height: auto;*/
+}
+
+.display {
+  position: relative;
 }
 
 .tray {
@@ -40,18 +45,44 @@
   display: none;
 }
 
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 10px;
+  position: relative;
+  right: 3px;
+}
+
+::-webkit-scrollbar-button:vertical:decrement:start {
+    display: none;
+}
+
+::-webkit-scrollbar-button:vertical:increment:end {
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.1);
+  /*border: 1px solid #aaa;*/
+  border-radius: 5px;
+  background-clip: content-box;
+}
+
 :host([open]) .tray {
   height: auto;
   display: block;
   z-index: 1000;
 }
 
-div ::slotted(drop-opt) {
+:host ::slotted(drop-opt) {
   display: block;
   text-align: right;
 }
 
-div ::slotted(drop-opt[selected]::before) {
+:host ::slotted(drop-opt[selected]::before) {
   content: '✓';
   float: left;
 }

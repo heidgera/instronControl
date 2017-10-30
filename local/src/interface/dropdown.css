@@ -3,4 +3,5 @@ drop-down {
   --padding-size: .5em;
   --font-color: #fff;
   --background-color: #77f;
+  --min-width: 7em;
 }
