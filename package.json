@@ -17,7 +17,7 @@
     "electron": "^1.7.9",
     "express": "^4.15.4",
     "node-wifi": "^1.2.5",
-    "onoff": "^1.1.8",
+    "pigpio": "^0.6.3",
     "path": "^0.12.7",
     "serialport": "^5.0.0",
     "ws": "^3.1.0"
