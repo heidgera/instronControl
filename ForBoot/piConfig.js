@@ -6,10 +6,13 @@ exports.config = {
       domainName: 'swingsensors.net',
     },*/
     autostart: true,
-    /*smoothShutdown: {
+    softShutdown: {
+      controlPin: 23,
+      monitorPin: 24,
       delayTime: 1000,
     },
-    wifi: {
+    gitWatch: true,
+    /*wifi: {
       ssid: 'SensorServer',
       password: 'defaultPass',
     },*/

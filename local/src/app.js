@@ -2,7 +2,14 @@
 
 var process = require('electron').remote.process;
 
-obtain(['./src/interface/button.js', './src/interface/dropdown.js'/*, './src/backend'*/], (Button, Dropdown/*, { Encoder, Scale }*/)=> {
+var obtains = [
+  'µ/components',
+  './src/interface/cards',
+  'µ/components/refDiv.js',
+  /* './src/backend'*/
+];
+
+obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards/*, { Encoder, Scale }*/)=> {
   exports.app = {};
 
   //var encoder = new Encoder(17, 27);
@@ -17,17 +24,45 @@ obtain(['./src/interface/button.js', './src/interface/dropdown.js'/*, './src/bac
   };*/
 
   exports.app.start = ()=> {
+
     setInterval(()=> {
       //µ('#outer').textContent = encoder.count;
     }, 50);
 
-    µ('but-ton')[0].onPress = ()=> {
-      µ('drop-down')[0].addOption('success!');
-    };
+    mainCards.setup();
 
     console.log('started');
 
-    document.onkeypress = (e)=> {
+    window.inputSetup = (el)=> {
+      let method = el.getAttribute('method');
+      if (!method) method = 'keyboard';
+
+      var checkClick = (e)=> {
+        if (e.target != document.activeElement &&
+            e.target.parentElement.id != method &&
+            e.target.id != method)
+          el.blur();
+      };
+
+      el.onclick = ()=> {
+        el.focus();
+      };
+
+      el.onfocus = ()=> {
+        µ(`#${method}Div`).classList.add('show');
+        µ('.mainContainer')[0].classList.add('inputActive');
+        document.addEventListener('click', checkClick);
+      };
+
+      el.onblur = ()=> {
+        µ(`#${method}Div`).classList.remove('show');
+        µ('.mainContainer')[0].classList.remove('inputActive');
+        document.removeEventListener('click', checkClick);
+      };
+
+    };
+
+    document.onkeydown = (e)=> {
       if (e.key == ' ') console.log('Space pressed');
     };
 
@@ -41,7 +76,7 @@ obtain(['./src/interface/button.js', './src/interface/dropdown.js'/*, './src/bac
 
     process.on('SIGINT', ()=> {
       //cleanup funcitons here
-      encoder.close();
+      //encoder.close();
       process.nextTick(function () { process.exit(0); });
     });
   };

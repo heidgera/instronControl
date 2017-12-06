@@ -1,0 +1,152 @@
+body {
+  --static-color: #47d;
+  --dynamic-color: #1a4;
+}
+
+.mainContainer {
+	position: relative;
+  display: block;
+	height: calc(100%);
+	text-align: center;
+  transition: height .5s;
+  font-size: 2em;
+}
+
+.mainContainer.inputActive {
+  height: calc(100% - var(--input-height));
+}
+
+.mainContainer muse-card {
+	position: absolute;
+	top: auto;
+	left: auto;
+	display: inline-block;
+	width: 60%;
+	height: 20%;
+	left: calc((100% - 60%) / 2);
+	top: 10%;
+}
+
+.mainContainer muse-card:last-child {
+	top: calc(50%);
+}
+
+.mainContainer muse-card[focused] {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: calc(100%);
+  overflow: auto;
+}
+
+#dynamic[blurred] {
+	top: 105%;
+}
+
+#static[blurred] {
+	top: -35%;
+}
+
+.mainContainer muse-card.focused_running {
+	transition: all .25s ease;
+}
+
+.mainContainer muse-card.blurred_running {
+	transition: top .25s ease;
+}
+
+.mainContainer muse-card > div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  text-align: left;
+}
+
+.mainContainer muse-card .focused {
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.static #static .focused, .dynamic #dynamic .focused  {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.focusContent {
+  position: absolute;
+  padding: 1em;
+  width: calc(100% - 2em);
+  height: calc(100% - 2em);
+}
+
+.attract {
+  height: 100%;
+}
+
+.attract > div {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.mainContainer .cardLabel {
+  text-align: center;
+  line-height: 2em;
+  /*top: calc((100% - 2em) / 2);*/
+  color: #777;
+  width: 60%;
+}
+
+.mainContainer muse-card .attract {
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+
+.mainContainer muse-card[focused] .attract {
+  opacity: 0;
+}
+
+.mainContainer .cardIcon {
+	color: #fff;
+  text-align: center;
+  height: 100%;
+  width: 33%;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.mainContainer .cardIcon > .svgIcon{
+  --icon-size: 10vw;
+  position: relative;
+  top: calc((100% - var(--icon-size)) / 2);
+  height: var(--icon-size);
+  width: var(--icon-size);
+  background-color: currentColor;
+}
+
+#dynamic .cardIcon {
+  background-color: var(--dynamic-color);
+}
+
+#static .cardIcon {
+  background-color: var(--static-color);
+}
+
+#static .cardIcon > .svgIcon{
+  --svg-src: url('assets/weight.svg');
+}
+
+#dynamic .cardIcon > .svgIcon{
+  --svg-src: url('assets/scale.svg');
+}
+
+.static #mainMenu {
+  background-color: var(--static-color);
+  color: #fff;
+}
+
+.dynamic #mainMenu {
+  background-color: var(--dynamic-color);
+  color: #fff;
+}

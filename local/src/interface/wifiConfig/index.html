@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="style.css"></link>
+<script src="index.js"></script>
+<div refContent>
+  <span id='wifiIcon' class='svgIcon'></span>
+  <span id='question' class="svgIcon"></span>
+  <muse-card id='wifiOpts'>
+    <muse-menu id='wifiMenu' title='Select a network'>
+    </muse-menu>
+    <div class='cardContent'>
+      <div>Network Name</div><br />
+      <drop-down id='ssids' default='Scanning...'></drop-down><br /><br />
+      <div>Password</div><br />
+      <input id='wifiPass' type='password'></input><br /><br />
+      <but-ton id='cancel' class='cancel'>Cancel</but-ton>
+      <but-ton id='accept' class='accept'>Save settings</but-ton>
+    </div>
+  </muse-card>
+</div>

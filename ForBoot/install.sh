@@ -9,9 +9,9 @@ sudo apt-get install --no-install-recommends xserver-xorg xinit xserver-xorg-vid
 
 echo "\nClone the application"
 
-git clone https://github.com/scimusmn/template.git
+git clone https://github.com/heidgera/instronControl.git
 
-cd waterWallClient
+cd instronControl
 
 echo "\nInit the submodules:"
 

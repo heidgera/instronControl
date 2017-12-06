@@ -1,0 +1,74 @@
+#wifiOpts {
+	--button-pos-x: 10vmin;
+	--button-pos-y: 5vmax;
+	position: fixed;
+	top: var(--button-pos-y);
+	right: var(--button-pos-x);
+  width: 80vmin;
+	transform: scale(0);
+	transform-origin: right top;
+	z-index: 1000;
+
+  text-align: left;
+	font-size: 1.5em;
+}
+
+#wifiOpts.opened_running {
+	transition: all .25s ease;
+}
+
+#wifiOpts[opened] {
+	top: 10vh;
+	right: 2.5vw;
+	transform: scale(1);
+}
+
+#wifiOpts .cardContent {
+  font-size: .5em;
+  padding: 1em;
+}
+
+#wifiMenu {
+	font-size: 20px;
+  --background-color: #39f;
+  --font-color: #fff;
+	--shadow-style: 0;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+#question {
+	position: absolute;
+  pointer-events: none;
+	right: 0;
+	top: calc((var(--menu-height) - 1em) / 2);
+	color: #333;
+	--svg-src: url('assets/question.svg');
+}
+
+#wifiIcon {
+	color: #ddd;
+	--svg-src: url('assets/wifi.svg');
+}
+
+#wifiIcon:active {
+	filter: brightness(70%);
+}
+
+#wifiIcon.opened {
+	filter: brightness(70%);
+}
+
+.loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,.5);
+  line-height: 100vh;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 15vh;
+  color: #fff;
+}

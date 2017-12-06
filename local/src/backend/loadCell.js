@@ -16,7 +16,7 @@ obtain(['µ/serial.js', 'µ/utilities.js'], ({ Serial }, { averager, round })=> 
       set: (val)=>this.average.addSample(val),
     });
 
-    serial.open('usbserial', 9600);
+    serial.open({ manufacturer: 'ftdi' }, 9600);
 
     serial.onMessage = (data)=> {
       var pol = (data[6] == '+') ? 1 : -1;
