@@ -15,7 +15,7 @@ obtain(['pigpio'], ({ Gpio })=> {
       speed = Math.min(100, Math.max(0, speed));
       _this.currentSpeed = speed;
       _this.currentDirection = dir;
-      motor.servoWrite(1500 + speed * ((dir) ? 500 : -500));
+      drive.servoWrite(1500 + speed * ((dir) ? 500 : -500));
     };
 
     eStop.on('interrupt', function (level) {
