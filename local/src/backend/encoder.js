@@ -23,7 +23,7 @@ obtain(['pigpio'], ({ Gpio })=> {
           if (signals[1].state) count++;
           else count--;
 
-          console.log(count);
+          if (!(count % 100)) console.log(count);
         }
       });
     });
