@@ -29,10 +29,13 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
     setInterval(()=> {
       //µ('#outer').textContent = encoder.count;
       driver.forward();
+      µ('#mainMenu').title = 'Forward';
       setTimeout(()=> {
         driver.stop();
+        µ('#mainMenu').title = 'Stop';
         setTimeout(()=> {
           driver.backward();
+          µ('#mainMenu').title = 'Backward';
         }, 1000);
       }, 2000);
 
