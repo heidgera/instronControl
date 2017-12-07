@@ -28,11 +28,11 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
 
     setInterval(()=> {
       //µ('#outer').textContent = encoder.count;
-      driver.run(1);
+      driver.forward();
       setTimeout(()=> {
-        driver.run(0);
+        driver.stop();
         setTimeout(()=> {
-          driver.run(-1);
+          driver.backward();
         }, 1000);
       }, 2000);
 

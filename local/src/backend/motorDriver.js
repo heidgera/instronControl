@@ -17,6 +17,18 @@ obtain(['pigpio'], ({ Gpio })=> {
       drive.servoWrite(1500 + speed * 500);
     };
 
+    _this.forward = ()=> {
+      drive.servoWrite(2000);
+    };
+
+    _this.backward = ()=> {
+      drive.servoWrite(1000);
+    };
+
+    _this.stop = ()=> {
+      drive.servoWrite(1500);
+    };
+
     eStop.on('interrupt', function (level) {
       if (!level) {
         console.log('E-Stop Pressed.');
