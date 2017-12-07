@@ -6,14 +6,14 @@ var obtains = [
   'µ/components',
   './src/interface/cards',
   'µ/components/refDiv.js',
-  './src/backend',
+  //'./src/backend',
 ];
 
-obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Scale, Driver })=> {
+obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, /*{ Encoder, Scale, Driver }*/)=> {
   exports.app = {};
 
-  var encoder = new Encoder(17, 27);
-  var driver = new Driver(12, 25);
+  //var encoder = new Encoder(17, 27);
+  //var driver = new Driver(12, 25);
 
   //var scale = new Scale();
 
@@ -26,20 +26,20 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
 
   exports.app.start = ()=> {
 
-    setInterval(()=> {
-      //µ('#outer').textContent = encoder.count;
-      driver.forward();
-      µ('#mainMenu').title = 'Forward';
-      setTimeout(()=> {
-        driver.stop();
-        µ('#mainMenu').title = 'Stop';
-        setTimeout(()=> {
-          driver.backward();
-          µ('#mainMenu').title = 'Backward';
-        }, 1000);
-      }, 2000);
-
-    }, 5000);
+    // setInterval(()=> {
+    //   //µ('#outer').textContent = encoder.count;
+    //   driver.forward();
+    //   µ('#mainMenu').title = 'Forward';
+    //   setTimeout(()=> {
+    //     driver.stop();
+    //     µ('#mainMenu').title = 'Stop';
+    //     setTimeout(()=> {
+    //       driver.backward();
+    //       µ('#mainMenu').title = 'Backward';
+    //     }, 1000);
+    //   }, 2000);
+    //
+    // }, 5000);
 
     mainCards.setup();
 
