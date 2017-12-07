@@ -14,5 +14,5 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
     console.log('Motor connected');
   };
 
-  exports.driver = Driver;
+  exports.driver = driver;
 });
