@@ -1,6 +1,11 @@
-console.log(__dirname);
+var obtains = [
+  './src/backend/encoder.js',
+  './src/backend/loadCell.js',
+  './src/backend/motorDriver.js'
+];
 
-obtain(['./src/backend/encoder.js', './src/backend/loadCell.js'], ({ Encoder }, { Scale })=> {
+obtain(, ({ Encoder }, { Scale }, {Driver})=> {
   exports.Encoder = Encoder;
   exports.Scale = Scale;
+  exports.Driver = Driver;
 });

@@ -9,10 +9,11 @@ var obtains = [
   './src/backend',
 ];
 
-obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Scale })=> {
+obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Scale, Driver })=> {
   exports.app = {};
 
   var encoder = new Encoder(17, 27);
+  var driver = new Driver(12, 25);
 
   //var scale = new Scale();
 
@@ -27,7 +28,15 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
 
     setInterval(()=> {
       //µ('#outer').textContent = encoder.count;
-    }, 50);
+      driver.run(1, 0);
+      setTimeout(()=> {
+        driver.run(0, 0);
+        setTimeout(()=> {
+          driver.run(0, 1);
+        }, 1000);
+      }, 2000);
+
+    }, 5000);
 
     mainCards.setup();
 
