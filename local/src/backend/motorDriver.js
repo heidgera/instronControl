@@ -14,6 +14,7 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
     _this.currentDirection = 0;
 
     var writeToController = (command, data)=> {
+      console.log([128, command, Math.floor(data), (128 + command + data) & 0b01111111]);
       drive.send([128, command, Math.floor(data), (128 + command + data) & 0b01111111]);
     };
 
