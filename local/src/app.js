@@ -9,7 +9,7 @@ var obtains = [
   './src/backend',
 ];
 
-obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Scale, Driver })=> {
+obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Scale, driver })=> {
   exports.app = {};
 
   var encoder = new Encoder(17, 27);
