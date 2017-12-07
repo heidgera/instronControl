@@ -30,13 +30,13 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
       console.log('Motor connected');
       setInterval(()=> {
         //µ('#outer').textContent = encoder.count;
-        driver.forward();
+        driver.forward(1);
         µ('#mainMenu').title = 'Forward';
         setTimeout(()=> {
           driver.stop();
           µ('#mainMenu').title = 'Stop';
           setTimeout(()=> {
-            driver.backward();
+            driver.backward(1);
             µ('#mainMenu').title = 'Backward';
           }, 1000);
         }, 2000);
