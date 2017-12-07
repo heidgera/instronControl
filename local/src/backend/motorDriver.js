@@ -11,17 +11,16 @@ obtain(['pigpio'], ({ Gpio })=> {
     _this.currentSpeed = 0;
     _this.currentDirection = 0;
 
-    _this.run = (speed, dir) => {
-      speed = Math.min(100, Math.max(0, speed));
+    _this.run = (speed) => {
+      speed = Math.min(1, Math.max(-1, speed));
       _this.currentSpeed = speed;
-      _this.currentDirection = dir;
-      drive.servoWrite(1500 + speed * ((dir) ? 500 : -500));
+      drive.servoWrite(1500 + speed * 500);
     };
 
     eStop.on('interrupt', function (level) {
       if (!level) {
         console.log('E-Stop Pressed.');
-        _this.run(_this.currentSpeed, !_this.currentDirection);
+        _this.run(_this.currentSpeed);
       }
     });
   };
