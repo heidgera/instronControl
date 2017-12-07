@@ -52,7 +52,7 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
     eStop.on('interrupt', function (level) {
       if (!level) {
         console.log('E-Stop Pressed.');
-        _this.run(-_this.currentSpeed);
+        _this.stop();
       }
     });
   };
