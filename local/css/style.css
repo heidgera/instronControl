@@ -31,10 +31,10 @@ body {
 	width: 100vh;
 	height: 100vw;
 	transform: rotate(270deg);
-	transform-origin:center center;
+	transform-origin:;
 
 	position:absolute;
-  /*top:-100vw;*/
+  left:100vh;
 	overflow: auto;
 }
 
