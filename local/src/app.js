@@ -44,7 +44,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
                                   first.clientX, first.clientY, false,
                                   false, false, false, 0/*left*/, null);
 
-    first.target.dispatchEvent(simulatedEvent);
+    document.dispatchEvent(simulatedEvent);
     event.preventDefault();
   }
 
