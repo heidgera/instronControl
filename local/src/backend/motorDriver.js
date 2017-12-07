@@ -1,5 +1,5 @@
 obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
-  exports.Driver = function (outputPin, estopPin) {
+  exports.Driver = function (estopPin) {
     var _this = this;
 
     var drive = new Serial();
@@ -14,7 +14,6 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
     _this.currentDirection = 0;
 
     var writeToController = (command, data)=> {
-      console.log([128, command, data, (128 + command + data) & 0b01111111]);
       drive.send([128, command, data, (128 + command + data) & 0b01111111]);
     };
 
