@@ -6,13 +6,13 @@ var obtains = [
   'µ/components',
   './src/interface/cards',
   'µ/components/refDiv.js',
-  /* './src/backend'*/
+  './src/backend',
 ];
 
-obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards/*, { Encoder, Scale }*/)=> {
+obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, { Encoder, Scale })=> {
   exports.app = {};
 
-  //var encoder = new Encoder(17, 27);
+  var encoder = new Encoder(17, 27);
 
   //var scale = new Scale();
 
