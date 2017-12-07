@@ -26,20 +26,23 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
 
   exports.app.start = ()=> {
 
-    setInterval(()=> {
-      //µ('#outer').textContent = encoder.count;
-      driver.forward();
-      µ('#mainMenu').title = 'Forward';
-      setTimeout(()=> {
-        driver.stop();
-        µ('#mainMenu').title = 'Stop';
+    driver.onReady = ()=> {
+      console.log('Motor connected');
+      setInterval(()=> {
+        //µ('#outer').textContent = encoder.count;
+        driver.forward();
+        µ('#mainMenu').title = 'Forward';
         setTimeout(()=> {
-          driver.backward();
-          µ('#mainMenu').title = 'Backward';
-        }, 1000);
-      }, 2000);
+          driver.stop();
+          µ('#mainMenu').title = 'Stop';
+          setTimeout(()=> {
+            driver.backward();
+            µ('#mainMenu').title = 'Backward';
+          }, 1000);
+        }, 2000);
 
-    }, 5000);
+      }, 5000);
+    };
 
     mainCards.setup();
 
