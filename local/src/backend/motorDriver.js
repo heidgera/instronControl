@@ -29,7 +29,7 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
       writeToController(0, speed * 127);
     };
 
-    _this.backward = ()=> {
+    _this.backward = (speed)=> {
       var data = Math.min(1, Math.max(0, speed));
       writeToController(1, speed * 127);
     };
