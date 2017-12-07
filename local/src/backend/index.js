@@ -7,5 +7,12 @@ var obtains = [
 obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
   exports.Encoder = Encoder;
   exports.Scale = Scale;
-  exports.Driver = Driver;
+
+  var driver = new Driver(25);
+
+  driver.onReady = ()=> {
+    console.log('Motor connected');
+  };
+
+  exports.driver = Driver;
 });
