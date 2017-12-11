@@ -24,23 +24,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
       driver.backward(.5);
     };
 
-    µ('#jogUpDynamic').onmousedown = (e)=> {
-      driver.forward(.5);
-    };
-
-    µ('#jogDownDynamic').onmousedown = (e)=> {
-      driver.backward(.5);
-    };
-
-    µ('#jogUpDynamic').onmouseup = (e)=> {
-      driver.stop();
-    };
-
-    µ('#jogDownDynamic').onmouseup = (e)=> {
-      driver.stop();
-    };
-
-    /*µ('#jogUpDynamic').addEventListener('mousedown', onUpDown);
+    µ('#jogUpDynamic').addEventListener('mousedown', onUpDown);
     µ('#jogUpDynamic').addEventListener('touchstart', onUpDown);
     µ('#jogUpDynamic').addEventListener('touchend', driver.stop);
     µ('#jogUpDynamic').addEventListener('mouseup', driver.stop);
@@ -48,7 +32,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
     µ('#jogDownDynamic').addEventListener('mousedown', onDownDown);
     µ('#jogDownDynamic').addEventListener('touchstart', onDownDown);
     µ('#jogDownDynamic').addEventListener('touchend', driver.stop);
-    µ('#jogDownDynamic').addEventListener('mouseup', driver.stop);*/
+    µ('#jogDownDynamic').addEventListener('mouseup', driver.stop);
 
     µ('input', importDoc.refDiv).forEach(inputSetup);
   };
