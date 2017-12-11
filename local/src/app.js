@@ -23,7 +23,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
     console.log(`New value is ${scale.value}`);
   };*/
 
-  function touchHandler(event) {
+  /*function touchHandler(event) {
     var first = event.changedTouches[0],
         type = '';
     switch (event.type)
@@ -42,7 +42,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
     simulatedEvent.initMouseEvent(type, true, true, window, 1,
                                   first.screenX, first.screenY,
                                   first.clientX, first.clientY, false,
-                                  false, false, false, 0/*left*/, null);
+                                  false, false, false, 0, null);
 
     document.dispatchEvent(simulatedEvent);
     event.preventDefault();
@@ -51,7 +51,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, mainCards, ref, { Encoder, Sc
   document.addEventListener('touchstart', touchHandler, true);
   document.addEventListener('touchmove', touchHandler, true);
   document.addEventListener('touchend', touchHandler, true);
-  document.addEventListener('touchcancel', touchHandler, true);
+  document.addEventListener('touchcancel', touchHandler, true);*/
 
   exports.app.start = ()=> {
 
