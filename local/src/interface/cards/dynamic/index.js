@@ -1,6 +1,6 @@
 var obtains = [
   `µ/components`,
-  './src/backend',
+  './src/backend/dummy.js',
 ];
 
 obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
@@ -17,10 +17,12 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
     };
 
     var onUpDown = (e)=> {
+      e.preventDefault();
       driver.forward(.5);
     };
 
     var onDownDown = (e)=> {
+      e.preventDefault();
       driver.backward(.5);
     };
 
