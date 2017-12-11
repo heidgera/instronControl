@@ -39,7 +39,7 @@ body {
 	position:absolute;
   left: 100vw;
 	top: -66vh;
-	overflow: auto;
+	overflow: hidden;
 }
 
 .svgIcon {
