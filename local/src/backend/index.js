@@ -11,13 +11,7 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
   var driver = new Driver(25);
 
   driver.onReady = ()=> {
-    console.log('Motor connected');
-    console.log('motor ready');
-    setInterval(()=> {
-      driver.forward(1);
-      setTimeout(driver.stop, 2000);
-      setTimeout(()=> {driver.backward(1);}, 3000);
-    }, 5000);
+    console.log('Motor ready');
   };
 
   exports.driver = driver;
