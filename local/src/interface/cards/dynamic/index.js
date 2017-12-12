@@ -16,11 +16,34 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
       µ('#cards').close();
     };
 
-    var onUpDown = (e)=> {
+    var onPress = (e)=> {
+      //console.log(e);
+      //e.preventDefault();
+      if (e.target.id.includes('Down')) driver.backward(.5);
+      else driver.forward(.5);
+    };
+
+    var onRelease = (e)=> {
+      //console.log(e);
+      e.preventDefault();
+      driver.stop();
+    };
+
+    //µ('#jogUpDynamic').addEventListener('mousedown', onPress);
+    µ('#jogUpDynamic').addEventListener('touchstart', onPress);
+    µ('#jogUpDynamic').addEventListener('touchend', onRelease);
+
+    //µ('#jogDownDynamic').addEventListener('mousedown', onPress);
+    µ('#jogDownDynamic').addEventListener('touchstart', onPress);
+    µ('#jogDownDynamic').addEventListener('touchend', onRelease);
+
+    /*var onUpDown = (e)=> {
+      console.log('mouse down');
       driver.forward(.5);
     };
 
     var onDownDown = (e)=> {
+      console.log('mouse down');
       driver.backward(.5);
     };
 
@@ -36,9 +59,10 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
     µ('#jogDownDynamic').addEventListener('touchstart', onDownDown);
     µ('#jogDownDynamic').addEventListener('touchend', (e)=> {
       e.preventDefault();
+      console.log('touch stop');
       driver.stop();
     });
-    µ('#jogDownDynamic').addEventListener('mouseup', driver.stop);
+    µ('#jogDownDynamic').addEventListener('click', driver.stop);*/
 
     µ('input', importDoc.refDiv).forEach(inputSetup);
   };
