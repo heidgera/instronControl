@@ -11,7 +11,6 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
     });
 
     _this.currentSpeed = 0;
-    _this.currentDirection = 0;
 
     var writeToController = (command, data)=> {
       drive.send([128, command, data, (128 + command + data) & 0b01111111]);
@@ -24,17 +23,34 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
       else _this.backward(Math.abs(speed));
     };
 
+    _this.ramp = (newSpeed, time = 1000) => {
+      newSpeed = Math.min(1, Math.max(-1, newSpeed));
+      var inc = (newSpeed - _this.currentSpeed) / 100;
+      clearInterval(_this.rampInt);
+      _this.rampInt = setInterval(()=> {
+        if (Math.abs(_this.currentSpeed - newSpeed) < 2 * inc) {
+          clearInterval(_this.rampInt);
+          _this.run(newSpeed);
+        } else {
+          _this.run(_this.currentSpeed + inc);
+        }
+      }, time / 100);
+    };
+
     _this.forward = (speed)=> {
       var data = Math.min(1, Math.max(0, speed));
+      _this.currentSpeed = data;
       writeToController(0, Math.floor(data * 127));
     };
 
     _this.backward = (speed)=> {
       var data = Math.min(1, Math.max(0, speed));
+      _this.currentSpeed = -1 * data;
       writeToController(1, Math.floor(data * 127));
     };
 
     _this.stop = ()=> {
+      _this.currentSpeed = 0;
       writeToController(0, 0);
     };
 

@@ -20,8 +20,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
       //console.log(e);
       //e.preventDefault();
       µ('#mainMenu').title = 'Pressed';
-      if (e.target.id.includes('Down')) driver.backward(.5);
-      else driver.forward(.5);
+      if (e.target.id.includes('Down')) driver.ramp(-1);
+      else driver.ramp(1);
     };
 
     var onRelease = (e)=> {
