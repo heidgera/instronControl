@@ -28,7 +28,7 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
       var inc = (newSpeed - _this.currentSpeed) / 100;
       clearInterval(_this.rampInt);
       _this.rampInt = setInterval(()=> {
-        if (Math.abs(_this.currentSpeed - newSpeed) < 2 * inc) {
+        if (Math.abs(_this.currentSpeed - newSpeed) < Math.abs(2 * inc)) {
           clearInterval(_this.rampInt);
           _this.run(newSpeed);
         } else {
