@@ -19,14 +19,12 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
     var onPress = (e)=> {
       //console.log(e);
       //e.preventDefault();
-      µ('#mainMenu').title = 'Pressed';
       if (e.target.id.includes('Down')) driver.ramp(-1);
       else driver.ramp(1);
     };
 
     var onRelease = (e)=> {
       //console.log(e);
-      µ('#mainMenu').title = 'Released';
       e.preventDefault();
       driver.ramp(0, 200);
     };
@@ -38,33 +36,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
     //µ('#jogDownDynamic').addEventListener('mousedown', onPress);
     µ('#jogDownDynamic').addEventListener('touchstart', onPress);
     µ('#jogDownDynamic').addEventListener('touchend', onRelease);
-
-    /*var onUpDown = (e)=> {
-      console.log('mouse down');
-      driver.forward(.5);
-    };
-
-    var onDownDown = (e)=> {
-      console.log('mouse down');
-      driver.backward(.5);
-    };
-
-    µ('#jogUpDynamic').addEventListener('mousedown', onUpDown);
-    µ('#jogUpDynamic').addEventListener('touchstart', onUpDown);
-    µ('#jogUpDynamic').addEventListener('touchend', (e)=> {
-      e.preventDefault();
-      driver.stop();
-    });
-    µ('#jogUpDynamic').addEventListener('click', driver.stop);
-
-    µ('#jogDownDynamic').addEventListener('mousedown', onDownDown);
-    µ('#jogDownDynamic').addEventListener('touchstart', onDownDown);
-    µ('#jogDownDynamic').addEventListener('touchend', (e)=> {
-      e.preventDefault();
-      console.log('touch stop');
-      driver.stop();
-    });
-    µ('#jogDownDynamic').addEventListener('click', driver.stop);*/
 
     µ('input', importDoc.refDiv).forEach(inputSetup);
   };
