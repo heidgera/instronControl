@@ -28,7 +28,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver })=> {
       //console.log(e);
       µ('#mainMenu').title = 'Released';
       e.preventDefault();
-      driver.stop();
+      driver.ramp(0, 200);
     };
 
     //µ('#jogUpDynamic').addEventListener('mousedown', onPress);

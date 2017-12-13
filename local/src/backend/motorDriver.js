@@ -19,8 +19,8 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
     _this.run = (speed) => {
       speed = Math.min(1, Math.max(-1, speed));
       _this.currentSpeed = speed;
-      if (speed >= 0) _this.forward(speed);
-      else _this.backward(Math.abs(speed));
+      if (speed >= 0) writeToController(0, Math.floor(speed * 127));
+      else writeToController(1, Math.floor(Math.abs(speed) * 127));
     };
 
     _this.ramp = (newSpeed, time = 1000) => {
@@ -38,18 +38,21 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
     };
 
     _this.forward = (speed)=> {
+      clearInterval(_this.rampInt);
       var data = Math.min(1, Math.max(0, speed));
       _this.currentSpeed = data;
       writeToController(0, Math.floor(data * 127));
     };
 
     _this.backward = (speed)=> {
+      clearInterval(_this.rampInt);
       var data = Math.min(1, Math.max(0, speed));
       _this.currentSpeed = -1 * data;
       writeToController(1, Math.floor(data * 127));
     };
 
     _this.stop = ()=> {
+      clearInterval(_this.rampInt);
       _this.currentSpeed = 0;
       writeToController(0, 0);
     };
