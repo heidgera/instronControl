@@ -4,7 +4,7 @@ var process = require('electron').remote.process;
 
 var obtains = [
   'µ/components',
-  './src/backend/dummy.js',
+  './src/backend',
 ];
 
 obtain(obtains, ({ Button, Dropdown, Card, Menu }, { Encoder, Scale, driver })=> {

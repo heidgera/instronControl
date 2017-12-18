@@ -3,7 +3,7 @@ console.log(__dirname);
 
 var obtains = [
   `µ/components`,
-  './src/backend/dummy.js',
+  './src/backend',
 ];
 
 obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
@@ -67,7 +67,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
         //e.preventDefault();
         if (card.focused) {
           mouse.y = e.touches[0].pageY;
-          initScroll = card.scrollTop;
+          initScroll = µ('.mainContainer')[0].scrollTop;
           document.addEventListener('touchmove', onmousemove);
         }
 
@@ -77,7 +77,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
 
       var onmousemove = (e)=> {
         console.log('main container scrub');
-        card.scrollTop = initScroll - (e.touches[0].pageY - mouse.y);
+        µ('.mainContainer')[0].scrollTop = initScroll - (e.touches[0].pageY - mouse.y);
       };
 
       var onmouseup = (e)=> {
