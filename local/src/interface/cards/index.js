@@ -1,60 +1,141 @@
+
+console.log(__dirname);
+
 var obtains = [
   `µ/components`,
-  `${__dirname}/static`,
-  `${__dirname}/dynamic`,
+  './src/backend/dummy.js',
 ];
 
-obtain(obtains, ({ Button, Card, Dropdown, Menu }, Static, Dynamic)=> {
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
+  Import.onready = (e)=> {
+    console.log(e.detail);
 
-  exports.setup = ()=> {
+    /////////// Function to handle clicks on input divs /////////////
 
-    µ('#cards').onLoad = ()=> {
-      µ('#static').makeTransitionState('blurred');
-      µ('#dynamic').makeTransitionState('blurred');
+    var inputSetup = (el)=> {
+      let method = el.getAttribute('method');
+      if (!method) method = 'keyboard';
 
-      µ('#static').onclick = ()=> {
-        µ('#static').focused = true;
-        µ('#dynamic').blurred = true;
-        µ('#close').style.opacity = 1;
-        µ('body')[0].classList.add('static');
+      var checkClick = (e)=> {
+        if (e.target != document.activeElement &&
+            e.target.parentElement.id != method &&
+            e.target.id != method)
+          el.blur();
       };
 
-      µ('#static').onFocused = ()=> {
-        µ('#mainMenu').title = 'Static Loading';
+      el.onclick = ()=> {
+        el.focus();
+        //setTimeout(()=> {el.scrollIntoView(true);}, 1000);
       };
 
-      µ('#static').onLoseFocused = ()=> {
-        µ('#mainMenu').title = µ('#mainMenu').originalTitle;
+      el.onfocus = ()=> {
+        µ(`#${method}Div`).classList.add('show');
+        µ('.mainContainer')[0].classList.add('inputActive');
+        document.addEventListener('click', checkClick);
       };
 
-      µ('#dynamic').onFocused = ()=> {
-        µ('#mainMenu').title = 'Measure Dynamic Load';
+      el.onblur = ()=> {
+        µ(`#${method}Div`).classList.remove('show');
+        µ('.mainContainer')[0].classList.remove('inputActive');
+        document.removeEventListener('click', checkClick);
       };
-
-      µ('#dynamic').onLoseFocused = ()=> {
-        µ('#mainMenu').title = µ('#mainMenu').originalTitle;
-      };
-
-      µ('#dynamic').onclick = ()=> {
-        µ('#dynamic').focused = true;
-        µ('#static').blurred = true;
-        µ('#close').style.opacity = 1;
-        µ('body')[0].classList.add('dynamic');
-      };
-
-      µ('#cards').close = ()=> {
-        µ('#dynamic').focused = false;
-        µ('#static').focused = false;
-        µ('#static').blurred = false;
-        µ('#dynamic').blurred = false;
-        µ('#close').style.opacity = 0;
-        µ('body')[0].classList.remove('dynamic');
-        µ('body')[0].classList.remove('static');
-        µ('#keyboardDiv').classList.remove('show');
-        µ('#numpadDiv').classList.remove('show');
-      };
-
-      µ('#close').onclick = µ('#cards').close;
     };
+
+    /////////// Setup common actions on the cards /////////////
+
+    µ('.museCard', Import.refDiv).forEach((card, ind, arr)=> {
+      card.makeTransitionState('blurred');
+
+      card.onclick = ()=> {
+        var other = arr[(ind + 1) % (arr.length)];
+        card.focused = true;
+        other.blurred = true;
+        µ('#close').style.opacity = 1;
+        µ('body')[0].classList.add(card.id);
+      };
+
+      card.onLoseFocused = ()=> {
+        µ('#mainMenu').title = µ('#mainMenu').originalTitle;
+      };
+
+      var mouse = {};
+      var initScroll = 0;
+
+      var cont = µ('.mainContainer')[0];
+
+      cont.addEventListener('touchstart', (e)=> {
+        //e.preventDefault();
+        if (card.focused) {
+          mouse.y = e.touches[0].pageY;
+          initScroll = card.scrollTop;
+          document.addEventListener('touchmove', onmousemove);
+        }
+
+        document.addEventListener('touchend', onmouseup);
+
+      });
+
+      var onmousemove = (e)=> {
+        console.log('main container scrub');
+        card.scrollTop = initScroll - (e.touches[0].pageY - mouse.y);
+      };
+
+      var onmouseup = (e)=> {
+        document.removeEventListener('mouseup', onmouseup);
+        document.removeEventListener('mousemove', onmousemove);
+      };
+
+      µ('ref-div', card).forEach(ref=> {
+        ref.onready = ()=> {
+          µ('input', ref).forEach(inputSetup);
+
+          µ('.cancel', ref)[0].onclick = (e)=> {
+            e.stopPropagation();
+            µ('#cards').close();
+          };
+
+          var up = µ('.jogUp', card)[0];
+          var down = µ('.jogDown', card)[0];
+
+          var onPress = (e)=> {
+            if (e.target.className.includes('Down')) driver.ramp(-1);
+            else driver.ramp(1);
+          };
+
+          var onRelease = (e)=> {
+            e.preventDefault();
+            driver.ramp(0, 200);
+          };
+
+          up.addEventListener('touchstart', onPress);
+          up.addEventListener('touchend', onRelease);
+
+          down.addEventListener('touchstart', onPress);
+          down.addEventListener('touchend', onRelease);
+        };
+      });
+    });
+
+    µ('#static').onFocused = ()=> {
+      µ('#mainMenu').title = 'Static Loading';
+    };
+
+    µ('#dynamic').onFocused = ()=> {
+      µ('#mainMenu').title = 'Measure Dynamic Load';
+    };
+
+    µ('#cards').close = ()=> {
+      µ('#dynamic').focused = false;
+      µ('#static').focused = false;
+      µ('#static').blurred = false;
+      µ('#dynamic').blurred = false;
+      µ('#close').style.opacity = 0;
+      µ('body')[0].classList.remove('dynamic');
+      µ('body')[0].classList.remove('static');
+      µ('#keyboardDiv').classList.remove('show');
+      µ('#numpadDiv').classList.remove('show');
+    };
+
+    µ('#close').onclick = µ('#cards').close;
   };
 });

@@ -6,14 +6,14 @@ body {
 .mainContainer {
 	position: relative;
   display: block;
-	height: calc(100%);
+	height: calc(100% - var(--menu-hgt));
 	text-align: center;
   transition: height .5s;
   font-size: 2em;
 }
 
 .mainContainer.inputActive {
-  height: calc(100% - var(--input-height));
+  height: calc((100% - var(--menu-hgt) * 1.35) - var(--input-height));
 }
 
 .mainContainer muse-card {
@@ -25,6 +25,7 @@ body {
 	height: 20%;
 	left: calc((100% - 60%) / 2);
 	top: 10%;
+  overflow-y: scroll;
 }
 
 .mainContainer muse-card:last-child {

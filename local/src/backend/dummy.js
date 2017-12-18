@@ -11,6 +11,8 @@ obtain(['./src/backend/loadCell.js',], ({ Scale })=> {
   var driver = {
     run: (val)=> { console.log(`Running motor at ${val}`);},
 
+    ramp: (val)=> { console.log(`Ramping motor to ${val}`);},
+
     forward: (val)=> { console.log(`Motor forward at ${val}`);},
 
     backward: (val)=> { console.log(`Motor backward at ${val}`);},

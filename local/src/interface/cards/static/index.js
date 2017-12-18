@@ -2,16 +2,10 @@ var obtains = [
   `µ/components`,
 ];
 
-obtain(obtains, ({ Button, Card, Dropdown, Menu })=> {
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, { Import })=> {
 
-  var importDoc = document.currentScript.ownerDocument;
-  importDoc.onReady = function () {
+  Import.onready = ()=> {
     console.log('Static');
-    µ('#staticCancel').onclick = (e)=> {
-      e.stopPropagation();
-      µ('#cards').close();
-    };
 
-    µ('input', importDoc.refDiv).forEach(inputSetup);
   };
 });
