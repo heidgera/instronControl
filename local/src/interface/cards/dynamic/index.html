@@ -1,14 +1,27 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="index.js"></script>
 <div refContent>
-  <div>Set Initial Position</div><br />
+  <h1>Set Initial Position</h1>
   <but-ton class='jogUp'>Jog Up</but-ton>
   <but-ton class='jogDown'>Jog Down</but-ton><br /><br />
-  <div>Excursion</div><br />
+  <div class='sideBySide'>
+    <span>
+      <h1>Direction</h1>
+      <input id='dynamicDirUp' type='radio' name='dynamicDirection' value='up'>
+      <label for="dynamicDirUp">Up</label>
+      <input id='dynamicDirDown' type='radio' name='dynamicDirection' value='down'>
+      <label for="dynamicDirDown">Down</label><br /><br />
+    </span>
+    <span>
+      <h1>Max speed</h1>
+      <input type="range" min=0 max=100 value=25></input><br /><br />
+    </span>
+  </div>
+  <h1>Excursion (inches)</h1>
   <input id='totExc' type='text'  method='numpad'></input><br /><br />
-  <div>Data Point Frequency (per inch)</div><br />
+  <h1>Data Point Frequency (per inch)</h1>
   <input id='pointFreq' type='text' method='numpad'></input><br /><br />
-  <div>Output Email Address</div><br />
+  <h1>Output Email Address</h1>
   <input id='email' type='text'  method='keyboard'></input><br /><br />
 
   <but-ton class='cancel'>Cancel</but-ton>

@@ -1,1 +1,22 @@
 
+input#email {
+  width: 20em;
+}
+
+h1 {
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+
+.sideBySide > span {
+  display: inline-block;
+  width: 40%;
+  float: left;
+}
+
+.sideBySide > span:last-child {
+  margin-left: 20%;
+}

@@ -18,15 +18,14 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
 
       var checkClick = (e)=> {
         if (e.target != document.activeElement &&
-            e.target.parentElement.id != method &&
-            e.target.id != method)
+            !µ(`#${method}`).contains(e.target))
           el.blur();
       };
 
-      el.onclick = ()=> {
+      /*el.onclick = ()=> {
         el.focus();
         //setTimeout(()=> {el.scrollIntoView(true);}, 1000);
-      };
+      };*/
 
       el.onfocus = ()=> {
         µ(`#${method}Div`).classList.add('show');
@@ -76,18 +75,17 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
       });
 
       var onmousemove = (e)=> {
-        console.log('main container scrub');
         µ('.mainContainer')[0].scrollTop = initScroll - (e.touches[0].pageY - mouse.y);
       };
 
       var onmouseup = (e)=> {
-        document.removeEventListener('mouseup', onmouseup);
-        document.removeEventListener('mousemove', onmousemove);
+        document.removeEventListener('touchend', onmouseup);
+        document.removeEventListener('touchmove', onmousemove);
       };
 
       µ('ref-div', card).forEach(ref=> {
         ref.onready = ()=> {
-          µ('input', ref).forEach(inputSetup);
+          µ('input[type="text"],input[type="password"]', ref).forEach(inputSetup);
 
           µ('.cancel', ref)[0].onclick = (e)=> {
             e.stopPropagation();

@@ -4,7 +4,7 @@ var obtains = [
   'os',
 ];
 
-obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os)=> {
+obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
 
   var setWifiOptsStartPos = ()=> {
     var rect = µ('#wifiIcon').getBoundingClientRect();
@@ -18,11 +18,10 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os)=> {
     iface: 'en0',
   });
 
-  var importDoc = document.currentScript.ownerDocument;
+  Import.onready = ()=> {
+    console.log('----------------------');
 
-  importDoc.onReady = ()=> {
-
-    µ('input', importDoc.refDiv).forEach((el)=> {
+    µ('input', Import.refDiv).forEach((el)=> {
       var checkClick = (e)=> {
         if (e.target != document.activeElement && e.target.parentElement.id != 'keyboard')
           el.blur();
@@ -43,7 +42,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os)=> {
       };
     });
 
-    µ('#wifiConfig').onLoad = ()=> {
+    µ('#wifiConfig').onready = ()=> {
       var checkWifiConnection = ()=> {
         var interfaces = os.networkInterfaces();
         for (var k in interfaces) {

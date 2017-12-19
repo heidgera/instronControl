@@ -9,7 +9,7 @@ body {
 	height: calc(100% - var(--menu-hgt));
 	text-align: center;
   transition: height .5s;
-  font-size: 2em;
+  font-size: 1.7em;
 }
 
 .mainContainer.inputActive {
@@ -60,6 +60,7 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
+  top: 0;
   text-align: left;
 }
 
@@ -77,6 +78,7 @@ body {
 .focusContent {
   position: absolute;
   padding: 1em;
+  box-sizing: border-box;
   width: calc(100% - 2em);
   height: calc(100% - 2em);
 }

@@ -10,7 +10,7 @@ var obtains = [
 obtain(obtains, ({ Button, Dropdown, Card, Menu }, { Encoder, Scale, driver })=> {
   exports.app = {};
 
-  var encoder = new Encoder(17, 27);
+  //var encoder = new Encoder(17, 27);
 
   //var scale = new Scale();
 

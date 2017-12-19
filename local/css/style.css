@@ -41,6 +41,11 @@ body {
 	overflow: hidden;
 }
 
+.normal {
+	width: 100vw;
+	height: 100vh;
+}
+
 .svgIcon {
 	--svg-src: url('assets/wifi.svg');
 	display: inline-block;
