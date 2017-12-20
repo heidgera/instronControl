@@ -1,28 +1,33 @@
-obtain(['./src/backend/loadCell.js',], ({ Scale })=> {
-  exports.Encoder = function () {
-    this.reset = ()=> {console.log('encoder reset');};
+obtain(['./src/backend/loadCell.js'], ({ Scale })=> {
+  if (!window.backend) {
+    window.backend = {
+      driver: {
+        run: (val)=> { console.log(`Running motor at ${val}`);},
 
-    this.count = 0;
-    this.close = ()=> {};
-  };
+        ramp: (val)=> { console.log(`Ramping motor to ${val}`);},
 
-  exports.Scale = Scale;
+        forward: (val)=> { console.log(`Motor forward at ${val}`);},
 
-  var driver = {
-    run: (val)=> { console.log(`Running motor at ${val}`);},
+        backward: (val)=> { console.log(`Motor backward at ${val}`);},
 
-    ramp: (val)=> { console.log(`Ramping motor to ${val}`);},
+        stop: (val)=> { console.log(`Stopping Motor`);},
+      },
+      encoder: {
+        reset: ()=> { console.log(`Reset encoder`);},
 
-    forward: (val)=> { console.log(`Motor forward at ${val}`);},
+        count: ()=> 1,
 
-    backward: (val)=> { console.log(`Motor backward at ${val}`);},
+        close: ()=> { console.log('Close encoder');},
+      },
+      scale: new Scale(),
+    };
 
-    stop: (val)=> { console.log(`Stopping Motor`);},
-  };
+    window.backend.driver.onReady = ()=> {
+      console.log('Motor ready');
+    };
+  }
 
-  driver.onReady = ()=> {
-    console.log('Motor connected');
-  };
-
-  exports.driver = driver;
+  exports.driver = window.backend.driver;
+  exports.encoder = window.backend.encoder;
+  exports.scale = window.backend.scale;
 });

@@ -68,6 +68,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
           µ('#ssids').default = 'Choose a network';
           µ('#ssids').innerHTML = '';
           networks.forEach((ntwk, ind)=> {
+            console.log(ntwk.ssid);
             if (µ(`[value="${ntwk.ssid}"]`, µ('#ssids')).length == 0) {
               let newOpt = µ('+drop-opt', µ('#ssids'));
               newOpt.textContent = ntwk.ssid;
