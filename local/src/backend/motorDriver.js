@@ -66,7 +66,7 @@ obtain(['pigpio', 'µ/serial.js'], ({ Gpio }, { Serial })=> {
       _this.onReady();
     };
 
-    drive.open({ name: 'serial0', baud: 9600 });
+    drive.open({ name: 'ttyS0', baud: 9600 });
 
     eStop.on('interrupt', function (level) {
       if (!level) {
