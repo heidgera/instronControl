@@ -1,5 +1,5 @@
 var obtains = [
-  'node-wifi',
+  'wifi-control',
   `µ/components`,
   'os',
 ];
@@ -15,6 +15,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
   };
 
   wifi.init({
+    debug: true,
     iface: 'wlan0',
   });
 
@@ -59,7 +60,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
 
       µ('#ssids').disabled = true;
 
-      wifi.scan((err, networks)=> {
+      wifi.scanForWiFi((err, networks)=> {
 
         if (err) {
           console.log(err);
@@ -86,7 +87,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
         let loading = µ('+div', µ('body')[0]);
         loading.className = 'loadingOverlay';
         loading.textContent = 'Loading...';
-        wifi.connect({ ssid: µ('#ssids').value, password: µ('#wifiPass').value }, function (err) {
+        wifi.connectToAP({ ssid: µ('#ssids').value, password: µ('#wifiPass').value }, function (err) {
           if (err) {
             console.log(err);
             return;
