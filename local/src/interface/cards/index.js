@@ -1,14 +1,13 @@
 
-console.log(__dirname);
+var process = require('electron').remote.process;
 
 var obtains = [
   `µ/components`,
-  './src/backend',
+  `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
 ];
 
 obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
   Import.onready = (e)=> {
-    console.log(e.detail);
 
     /////////// Function to handle clicks on input divs /////////////
 
@@ -33,11 +32,11 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
         document.addEventListener('click', checkClick);
       };
 
-      el.onblur = ()=> {
+      el.addEventListener('blur', ()=> {
         µ(`#${method}Div`).classList.remove('show');
         µ('.mainContainer')[0].classList.remove('inputActive');
         document.removeEventListener('click', checkClick);
-      };
+      });
     };
 
     /////////// Setup common actions on the cards /////////////

@@ -4,3 +4,11 @@ h1 {
   font-size: 1em;
   font-weight: normal;
 }
+
+.runningOverlay {
+  position: fixed;
+  width: 100vmin;
+  height: 100vmax;
+  visibility: hidden;
+  background-color: rgba(0,0,0,.5);
+}

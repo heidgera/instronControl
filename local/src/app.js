@@ -1,13 +1,10 @@
 'use strict';
 
-var process = require('electron').remote.process;
-
 var obtains = [
   'µ/components',
-  './src/backend',
 ];
 
-obtain(obtains, ({ Button, Dropdown, Card, Menu }, { Encoder, Scale, driver })=> {
+obtain(obtains, ({ Button, Dropdown, Card, Menu })=> {
   exports.app = {};
 
   //var encoder = new Encoder(17, 27);
@@ -22,6 +19,9 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, { Encoder, Scale, driver })=>
   };*/
 
   exports.app.start = ()=> {
+    if (process.platform == 'darwin') {
+      µ('.rotator')[0].className = 'normal';
+    }
 
     console.log('started');
 

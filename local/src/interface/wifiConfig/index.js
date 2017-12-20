@@ -15,11 +15,10 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
   };
 
   wifi.init({
-    iface: 'en0',
+    iface: 'wlan0',
   });
 
   Import.onready = ()=> {
-    console.log('----------------------');
 
     µ('input', Import.refDiv).forEach((el)=> {
       var checkClick = (e)=> {
