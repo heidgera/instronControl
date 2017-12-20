@@ -1,5 +1,5 @@
 var obtains = [
-  'wifi-control',
+  'node-wifi',
   `µ/components`,
   'os',
 ];
@@ -15,8 +15,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
   };
 
   wifi.init({
-    debug: true,
-    iface: 'wlan0',
+    iface: null,
   });
 
   Import.onready = ()=> {
@@ -60,16 +59,16 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
 
       µ('#ssids').disabled = true;
 
-      wifi.scanForWiFi((err, networks)=> {
-
+      wifi.scan((err, networks)=> {
+        console.log('Wifi returned.');
         if (err) {
           console.log(err);
         } else {
+          console.log(networks);
           µ('#ssids').disabled = false;
           µ('#ssids').default = 'Choose a network';
           µ('#ssids').innerHTML = '';
           networks.forEach((ntwk, ind)=> {
-            console.log(ntwk.ssid);
             if (µ(`[value="${ntwk.ssid}"]`, µ('#ssids')).length == 0) {
               let newOpt = µ('+drop-opt', µ('#ssids'));
               newOpt.textContent = ntwk.ssid;
@@ -87,7 +86,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
         let loading = µ('+div', µ('body')[0]);
         loading.className = 'loadingOverlay';
         loading.textContent = 'Loading...';
-        wifi.connectToAP({ ssid: µ('#ssids').value, password: µ('#wifiPass').value }, function (err) {
+        wifi.connect({ ssid: µ('#ssids').value, password: µ('#wifiPass').value }, function (err) {
           if (err) {
             console.log(err);
             return;
