@@ -129,8 +129,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
       µ('#close').style.opacity = 0;
       µ('body')[0].classList.remove('dynamic');
       µ('body')[0].classList.remove('static');
-      //µ('#keyboardDiv').classList.remove('show');
-      µ('key-board')[0].show = true;
+      µ('#keyboardDiv').classList.remove('show');
+      //µ('key-board')[0].show = true;
       µ('#numpadDiv').classList.remove('show');
     };
 
