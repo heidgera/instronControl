@@ -62,7 +62,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
       var cont = µ('.focusContent', card)[0];
 
       cont.addEventListener('touchstart', (e)=> {
-        if (card.focused && cont.height < cont.scrollHeight) {
+        if (card.focused) {
           console.log('scroll!');
           mouse.x = e.touches[0].pageX;
           initScroll = cont.scrollTop;
