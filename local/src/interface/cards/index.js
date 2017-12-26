@@ -63,7 +63,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
 
       cont.addEventListener('touchstart', (e)=> {
         if (card.focused) {
-          console.log('scroll!');
           mouse.x = e.touches[0].pageX;
           initScroll = cont.scrollTop;
           document.addEventListener('touchmove', onmousemove);
@@ -73,7 +72,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
       });
 
       var onmousemove = (e)=> {
-        console.log(e.touches[0].pageX);
         cont.scrollTop = Math.max(0, Math.min(cont.scrollHeight, initScroll - (e.touches[0].pageX - mouse.x)));
       };
 
