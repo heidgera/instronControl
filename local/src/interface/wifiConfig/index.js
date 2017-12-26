@@ -61,6 +61,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
       µ('#ssids').disabled = true;
 
       wifi.scan((err, networks)=> {
+        console.log(networks);
         if (err) {
           console.log(err);
         } else {
