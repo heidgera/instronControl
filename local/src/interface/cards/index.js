@@ -59,22 +59,22 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
       var mouse = {};
       var initScroll = 0;
 
-      var cont = µ('.mainContainer')[0];
+      var cont = µ('.focusContent', card)[0];
 
-      cont.addEventListener('touchstart', (e)=> {
-        //e.preventDefault();
-        if (card.focused) {
-          mouse.y = e.touches[0].pageY;
-          initScroll = µ('.mainContainer')[0].scrollTop;
-          document.addEventListener('touchmove', onmousemove);
+      cont.addEventListener('mousedown', (e)=> {
+        if (card.focused && cont.height < cont.scrollHeight) {
+          console.log('scroll!');
+          mouse.x = e.touches[0].pageX;
+          initScroll = cont.scrollTop;
+          document.addEventListener('mousemove', onmousemove);
+          document.addEventListener('mouseup', onmouseup);
         }
-
-        document.addEventListener('touchend', onmouseup);
 
       });
 
       var onmousemove = (e)=> {
-        µ('.mainContainer')[0].scrollTop = initScroll - (e.touches[0].pageY - mouse.y);
+        console.log(e.touches[0].pageX);
+        cont.scrollTop = Math.max(0, Math.min(cont.scrollHeight, initScroll - (e.touches[0].pageX - mouse.x)));
       };
 
       var onmouseup = (e)=> {
@@ -129,7 +129,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
       µ('#close').style.opacity = 0;
       µ('body')[0].classList.remove('dynamic');
       µ('body')[0].classList.remove('static');
-      µ('#keyboardDiv').classList.remove('show');
+      //µ('#keyboardDiv').classList.remove('show');
+      µ('key-board')[0].show = true;
       µ('#numpadDiv').classList.remove('show');
     };
 

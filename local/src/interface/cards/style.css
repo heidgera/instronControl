@@ -24,12 +24,12 @@ body {
 	width: 60%;
 	height: 20%;
 	left: calc((100% - 60%) / 2);
-	top: 10%;
+	top: 20%;
   overflow-y: hidden;
 }
 
 .mainContainer muse-card:last-child {
-	top: calc(50%);
+	top: calc(60%);
 }
 
 .mainContainer muse-card[focused] {
@@ -37,7 +37,7 @@ body {
 	left: 0;
 	width: 100%;
 	height: calc(100%);
-  overflow: auto;
+  /*overflow: auto;*/
 }
 
 #dynamic[blurred] {
@@ -79,8 +79,9 @@ body {
   position: absolute;
   padding: 1em;
   box-sizing: border-box;
-  width: calc(100% - 2em);
-  height: calc(100% - 2em);
+  width: calc(100%);
+  height: calc(100%);
+  overflow-y: auto;
 }
 
 .attract {

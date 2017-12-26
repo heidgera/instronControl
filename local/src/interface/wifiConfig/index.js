@@ -1,10 +1,11 @@
 var obtains = [
-  'node-wifi',
+  `./src/interface/wifiConfig/wifiControl.js`,
   `µ/components`,
   'os',
 ];
 
 obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
+  console.log(wifi);
 
   var setWifiOptsStartPos = ()=> {
     var rect = µ('#wifiIcon').getBoundingClientRect();
@@ -14,9 +15,9 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
     µ('#wifiOpts').style.setProperty('--button-pos-y', rect.bottom + 'px');
   };
 
-  wifi.init({
+  /*wifi.init({
     iface: null,
-  });
+  });*/
 
   Import.onready = ()=> {
 
@@ -60,19 +61,17 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
       µ('#ssids').disabled = true;
 
       wifi.scan((err, networks)=> {
-        console.log('Wifi returned.');
         if (err) {
           console.log(err);
         } else {
-          console.log(networks);
           µ('#ssids').disabled = false;
           µ('#ssids').default = 'Choose a network';
           µ('#ssids').innerHTML = '';
           networks.forEach((ntwk, ind)=> {
-            if (µ(`[value="${ntwk.ssid}"]`, µ('#ssids')).length == 0) {
+            if (µ(`[value="${ntwk}"]`, µ('#ssids')).length == 0) {
               let newOpt = µ('+drop-opt', µ('#ssids'));
-              newOpt.textContent = ntwk.ssid;
-              newOpt.value = ntwk.ssid;
+              newOpt.textContent = ntwk;
+              newOpt.value = ntwk;
             }
           });
         }
@@ -83,6 +82,11 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
       };
 
       µ('#accept').onclick = ()=> {
+        if (!µ('#ssids').value) {
+          µ('#growl').message('Please select an Access Point', 'warn');
+          return;
+        }
+
         let loading = µ('+div', µ('body')[0]);
         loading.className = 'loadingOverlay';
         loading.textContent = 'Loading...';
@@ -92,7 +96,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
             return;
           }
 
-          console.log('Connected');
+          µ('#growl').message(`Connected to ${µ('#ssids').value}`, 'success');
           loading.parentElement.removeChild(loading);
         });
 

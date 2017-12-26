@@ -13,10 +13,15 @@ h1 {
 
 .sideBySide > span {
   display: inline-block;
-  width: 40%;
+  width: 45%;
   float: left;
 }
 
 .sideBySide > span:last-child {
-  margin-left: 20%;
+  margin-left: 10%;
+}
+
+#speedVal {
+  font-size: .65em;
+  padding-left: .5em;
 }

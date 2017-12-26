@@ -133,3 +133,31 @@ muse-card but-ton.cancel {
   border: solid 1px rgba(0,0,0,.2);
   --font-color: #555;
 }
+
+/************* Growls **************/
+
+muse-growl {
+	z-index: 1000;
+	font-size: 1.5em;
+	width: 100vmin;
+	height: 4em;
+	line-height: 4em;
+	left: 0;
+	top: -5em;
+	transition: top .5s ease;
+	border-radius: 0;
+}
+
+muse-growl[alert] {
+	top: 0;
+}
+
+muse-growl.warn {
+	background-color: rgba(128, 0,0,.95);
+	color: #fff;
+}
+
+muse-growl.success {
+	background-color: rgba(0,128,0,.95);
+	color: #fff;
+}
