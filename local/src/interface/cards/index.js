@@ -61,13 +61,13 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
 
       var cont = µ('.focusContent', card)[0];
 
-      cont.addEventListener('mousedown', (e)=> {
+      cont.addEventListener('touchstart', (e)=> {
         if (card.focused && cont.height < cont.scrollHeight) {
           console.log('scroll!');
           mouse.x = e.touches[0].pageX;
           initScroll = cont.scrollTop;
-          document.addEventListener('mousemove', onmousemove);
-          document.addEventListener('mouseup', onmouseup);
+          document.addEventListener('touchmove', onmousemove);
+          document.addEventListener('touchend', onmouseup);
         }
 
       });
@@ -130,7 +130,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
       µ('body')[0].classList.remove('dynamic');
       µ('body')[0].classList.remove('static');
       µ('#keyboardDiv').classList.remove('show');
-      //µ('key-board')[0].show = true;
       µ('#numpadDiv').classList.remove('show');
     };
 

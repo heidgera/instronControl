@@ -20,7 +20,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu })=> {
 
   exports.app.start = ()=> {
     if (process.platform == 'darwin') {
-      µ('.rotator')[0].className = 'normal';
+      //µ('.rotator')[0].className = 'normal';
     }
 
     console.log('started');
