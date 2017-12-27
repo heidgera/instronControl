@@ -29,7 +29,7 @@ var obtains = [
   `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
 ];
 
-obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder }, { Import })=> {
   Import.onready = (e)=> {
 
     /////////// Function to handle clicks on input divs /////////////
@@ -118,6 +118,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
           var onRelease = (e)=> {
             e.preventDefault();
             driver.ramp(0, 200);
+            µ('#growl').message(encoder.count, 'success');
           };
 
           up.addEventListener('touchstart', onPress);
