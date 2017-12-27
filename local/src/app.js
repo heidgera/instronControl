@@ -19,19 +19,27 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
     console.log(`New value is ${scale.value}`);
   };*/
 
-  wifi.scan((err, networks)=> {
-    if (!err) {
-      console.log('--------------------');
-      console.log(networks);
-    }
-  });
-
   exports.app.start = ()=> {
     if (process.platform == 'darwin') {
       //µ('.rotator')[0].className = 'normal';
     }
 
     console.log('started');
+
+    µ('#wifiConfig').onready = ()=> {
+      wifi.scan((err, networks)=> {
+        µ('#ssids').disabled = false;
+        µ('#ssids').default = 'Choose a network';
+        µ('#ssids').innerHTML = '';
+        networks.forEach((ntwk, ind)=> {
+          if (µ(`[value="${ntwk}"]`, µ('#ssids')).length == 0) {
+            let newOpt = µ('+drop-opt', µ('#ssids'));
+            newOpt.textContent = ntwk;
+            newOpt.value = ntwk;
+          }
+        });
+      });
+    };
 
     document.onkeydown = (e)=> {
       if (e.key == ' ') console.log('Space pressed');
