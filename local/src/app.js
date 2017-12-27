@@ -39,21 +39,28 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
           }
         });
       });
-      setTimeout(()=> {
-        wifi.scan((err, networks)=> {
-          µ('#ssids').disabled = false;
-          µ('#ssids').default = 'Choose a network';
-          µ('#ssids').innerHTML = '';
-          networks.forEach((ntwk, ind)=> {
-            if (µ(`[value="${ntwk}"]`, µ('#ssids')).length == 0) {
-              let newOpt = µ('+drop-opt', µ('#ssids'));
-              newOpt.textContent = ntwk;
-              newOpt.value = ntwk;
-            }
-          });
-        });
-      }, 100);
 
+      µ('#accept').onclick = ()=> {
+        if (!µ('#ssids').value) {
+          µ('#growl').message('Please select an Access Point', 'warn');
+          return;
+        }
+
+        let loading = µ('+div', µ('body')[0]);
+        loading.className = 'loadingOverlay';
+        loading.textContent = 'Loading...';
+        wifi.connect({ ssid: µ('#ssids').value, password: µ('#wifiPass').value }, function (err) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+
+          µ('#growl').message(`Connected to ${µ('#ssids').value}`, 'success');
+          loading.parentElement.removeChild(loading);
+        });
+
+        µ('#wifiOpts').opened = false;
+      };
     };
 
     document.onkeydown = (e)=> {

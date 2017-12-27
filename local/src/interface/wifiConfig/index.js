@@ -1,12 +1,9 @@
 var obtains = [
-  `./src/interface/wifiConfig/wifiControl.js`,
   `µ/components`,
   'os',
 ];
 
-obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
-  console.log(wifi);
-
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, os, { Import })=> {
   var setWifiOptsStartPos = ()=> {
     var rect = µ('#wifiIcon').getBoundingClientRect();
     µ('#wifiOpts').style.removeProperty('--button-pos-x');
@@ -62,28 +59,6 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
 
       µ('#wifiPass').onclick = ()=> {
         µ('#wifiPass').select();
-      };
-
-      µ('#accept').onclick = ()=> {
-        if (!µ('#ssids').value) {
-          µ('#growl').message('Please select an Access Point', 'warn');
-          return;
-        }
-
-        let loading = µ('+div', µ('body')[0]);
-        loading.className = 'loadingOverlay';
-        loading.textContent = 'Loading...';
-        wifi.connect({ ssid: µ('#ssids').value, password: µ('#wifiPass').value }, function (err) {
-          if (err) {
-            console.log(err);
-            return;
-          }
-
-          µ('#growl').message(`Connected to ${µ('#ssids').value}`, 'success');
-          loading.parentElement.removeChild(loading);
-        });
-
-        µ('#wifiOpts').opened = false;
       };
 
       µ('#cancel').onclick = ()=> µ('#wifiOpts').opened = false;
