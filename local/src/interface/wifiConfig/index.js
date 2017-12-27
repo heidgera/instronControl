@@ -15,10 +15,6 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
     µ('#wifiOpts').style.setProperty('--button-pos-y', rect.bottom + 'px');
   };
 
-  /*wifi.init({
-    iface: null,
-  });*/
-
   Import.onready = ()=> {
 
     µ('input', Import.refDiv).forEach((el)=> {
