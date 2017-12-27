@@ -12,9 +12,10 @@ process.on('uncaughtException', (err)=> {
 });
 
 var obtains = [
+  `µ/components`,
 ];
 
-obtain(obtains, ({ Import })=> {
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, { Import })=> {
   // Import.onready = (e)=> {
   //
   //   /////////// Function to handle clicks on input divs /////////////
