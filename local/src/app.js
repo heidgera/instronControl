@@ -76,6 +76,10 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
       }
     };
 
+    process.on('uncaughtException', function (error) {
+      console.log(error);
+    });
+
     process.on('SIGINT', ()=> {
       //cleanup funcitons here
       //encoder.close();
