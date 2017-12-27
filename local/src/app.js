@@ -26,11 +26,11 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
 
     console.log('started');
 
-    wifi.scan((err, networks)=> {
+    /*wifi.scan((err, networks)=> {
       networks.forEach((ntwk, ind)=> {
         console.log(ntwk);
       });
-    });
+    });*/
 
     /*µ('#wifiConfig').onready = ()=> {
       wifi.scan((err, networks)=> {
