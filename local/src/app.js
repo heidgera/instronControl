@@ -26,7 +26,13 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
 
     console.log('started');
 
-    µ('#wifiConfig').onready = ()=> {
+    wifi.scan((err, networks)=> {
+      networks.forEach((ntwk, ind)=> {
+        console.log(ntwk);
+      });
+    });
+
+    /*µ('#wifiConfig').onready = ()=> {
       wifi.scan((err, networks)=> {
         µ('#ssids').disabled = false;
         µ('#ssids').default = 'Choose a network';
@@ -61,7 +67,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
 
         µ('#wifiOpts').opened = false;
       };
-    };
+    };*/
 
     document.onkeydown = (e)=> {
       if (e.key == ' ') console.log('Space pressed');
