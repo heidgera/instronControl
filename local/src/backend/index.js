@@ -10,10 +10,10 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver }, { Gpio })=> {
     window.backend = {
       driver: {},
       encoder: new Gpio(17, {
-      mode: Gpio.INPUT,
-      pullUpDown: Gpio.PUD_DOWN,
-      edge: Gpio.EITHER_EDGE,
-    })//encoder: new Encoder(17, 27),
+        mode: Gpio.INPUT,
+        pullUpDown: Gpio.PUD_DOWN,
+        edge: Gpio.EITHER_EDGE,
+      }),//encoder: new Encoder(17, 27),
       scale: new Scale(),
     };
 
