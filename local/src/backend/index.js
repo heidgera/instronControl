@@ -7,8 +7,8 @@ var obtains = [
 obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
   if (!window.backend) {
     window.backend = {
-      // driver: new Driver(25),
-      // encoder: new Encoder(17, 27),
+      driver: new Driver(25),
+      //encoder: new Encoder(17, 27),
       scale: new Scale(),
     };
 
@@ -18,6 +18,6 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
   }
 
   exports.driver = window.backend.driver;
-  exports.encoder = window.backend.encoder;
+  //exports.encoder = window.backend.encoder;
   exports.scale = window.backend.scale;
 });
