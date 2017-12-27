@@ -21,11 +21,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
           el.blur();
       };
 
-      /*el.onclick = ()=> {
-        el.focus();
-        //setTimeout(()=> {el.scrollIntoView(true);}, 1000);
-      };*/
-
       el.onfocus = ()=> {
         µ(`#${method}Div`).classList.add('show');
         µ('.mainContainer')[0].classList.add('inputActive');
@@ -41,7 +36,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
 
     /////////// Setup common actions on the cards /////////////
 
-    µ('.museCard', Import.refDiv).forEach((card, ind, arr)=> {
+    /*µ('.museCard', Import.refDiv).forEach((card, ind, arr)=> {
       card.makeTransitionState('blurred');
 
       card.onclick = ()=> {
@@ -109,7 +104,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
           down.addEventListener('touchend', onRelease);
         };
       });
-    });
+    });*/
 
     µ('#static').onFocused = ()=> {
       µ('#mainMenu').title = 'Static Loading';
