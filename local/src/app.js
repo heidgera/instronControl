@@ -39,18 +39,21 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
           }
         });
       });
-      wifi.scan((err, networks)=> {
-        µ('#ssids').disabled = false;
-        µ('#ssids').default = 'Choose a network';
-        µ('#ssids').innerHTML = '';
-        networks.forEach((ntwk, ind)=> {
-          if (µ(`[value="${ntwk}"]`, µ('#ssids')).length == 0) {
-            let newOpt = µ('+drop-opt', µ('#ssids'));
-            newOpt.textContent = ntwk;
-            newOpt.value = ntwk;
-          }
+      setTimeout(()=> {
+        wifi.scan((err, networks)=> {
+          µ('#ssids').disabled = false;
+          µ('#ssids').default = 'Choose a network';
+          µ('#ssids').innerHTML = '';
+          networks.forEach((ntwk, ind)=> {
+            if (µ(`[value="${ntwk}"]`, µ('#ssids')).length == 0) {
+              let newOpt = µ('+drop-opt', µ('#ssids'));
+              newOpt.textContent = ntwk;
+              newOpt.value = ntwk;
+            }
+          });
         });
-      });
+      }, 100);
+
     };
 
     document.onkeydown = (e)=> {
