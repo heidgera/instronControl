@@ -5,6 +5,8 @@ var obtains = [
 ];
 
 obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
+  console.log('trying to store backend');
+  console.log(window);
   // if (!window.backend) {
   //   window.backend = {
   //     driver: new Driver(25),
