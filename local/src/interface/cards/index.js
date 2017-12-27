@@ -4,7 +4,7 @@ var process = require('electron').remote.process;
 process.on('uncaughtException', (err)=> {
   for (var val in err) {
     if (err.hasOwnProperty(val)) {
-      console.log(val);
+      console.log(`${val}: ${err[val]}`);
     }
   }
 });
