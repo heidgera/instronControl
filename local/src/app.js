@@ -1,15 +1,11 @@
 'use strict';
 
-var { process } = require('electron').remote;
-
 var obtains = [
   'µ/components',
   `./src/interface/wifiConfig/wifiControl.js`,
-  'µ/components/refDiv.js',
-  `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
 ];
 
-obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, { driver }, refDiv)=> {
+obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
   exports.app = {};
 
   //var encoder = new Encoder(17, 27);
@@ -23,21 +19,49 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, { driver }, refDiv)=> {
     console.log(`New value is ${scale.value}`);
   };*/
 
-  const { dialog } = require('electron').remote;
-
-  // Disable error dialogs by overriding
-  // FIX: https://goo.gl/YsDdsS
-  dialog.showErrorBox = function (title, content) {
-      console.log(`${title}
-${content}`);
-    };
-
   exports.app.start = ()=> {
     if (process.platform == 'darwin') {
       µ('.rotator')[0].className = 'normal';
     }
 
     console.log('started');
+
+    µ('#wifiConfig').onready = ()=> {
+      wifi.scan((err, networks)=> {
+        µ('#ssids').disabled = false;
+        µ('#ssids').default = 'Choose a network';
+        µ('#ssids').innerHTML = '';
+        networks.forEach((ntwk, ind)=> {
+          if (µ(`[value="${ntwk}"]`, µ('#ssids')).length == 0) {
+            let newOpt = µ('+drop-opt', µ('#ssids'));
+            newOpt.textContent = ntwk;
+            newOpt.value = ntwk;
+          }
+        });
+      });
+
+      µ('#accept').onclick = ()=> {
+        if (!µ('#ssids').value) {
+          µ('#growl').message('Please select an Access Point', 'warn');
+          return;
+        }
+
+        let loading = µ('+div', µ('body')[0]);
+        loading.className = 'loadingOverlay';
+        loading.textContent = 'Loading...';
+        wifi.connect({ ssid: µ('#ssids').value, password: µ('#wifiPass').value }, function (err) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+
+          µ('#growl').message(`Connected to ${µ('#ssids').value}`, 'success');
+          loading.parentElement.removeChild(loading);
+        });
+
+        µ('#wifiOpts').opened = false;
+      };
+    };
 
     document.onkeydown = (e)=> {
       if (e.key == ' ') console.log('Space pressed');
