@@ -21,12 +21,12 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
 
   exports.app.start = ()=> {
     if (process.platform == 'darwin') {
-      //µ('.rotator')[0].className = 'normal';
+      µ('.rotator')[0].className = 'normal';
     }
 
     console.log('started');
 
-    µ('#wifiConfig').onready = ()=> {
+    /*µ('#wifiConfig').onready = ()=> {
       wifi.scan((err, networks)=> {
         µ('#ssids').disabled = false;
         µ('#ssids').default = 'Choose a network';
@@ -61,7 +61,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
 
         µ('#wifiOpts').opened = false;
       };
-    };
+    };*/
 
     document.onkeydown = (e)=> {
       if (e.key == ' ') console.log('Space pressed');
