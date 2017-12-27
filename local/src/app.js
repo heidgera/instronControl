@@ -1,12 +1,15 @@
 'use strict';
 
+var { process } = require('electron').remote;
+
 var obtains = [
   'µ/components',
   `./src/interface/wifiConfig/wifiControl.js`,
   'µ/components/refDiv.js',
+  `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
 ];
 
-obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, refDiv)=> {
+obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, { driver }, refDiv)=> {
   exports.app = {};
 
   //var encoder = new Encoder(17, 27);
