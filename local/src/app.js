@@ -19,13 +19,13 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
     console.log(`New value is ${scale.value}`);
   };*/
 
-  const electron = require('electron');
-  const dialog = electron.dialog;
+  const { dialog } = require('electron').remote;
 
   // Disable error dialogs by overriding
   // FIX: https://goo.gl/YsDdsS
   dialog.showErrorBox = function (title, content) {
-      console.log(`${title}\n${content}`);
+      console.log(`${title}
+${content}`);
     };
 
   exports.app.start = ()=> {
