@@ -9,7 +9,7 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver }, { Gpio })=> {
   if (!window.backend) {
     window.backend = {
       driver: {},
-      encoder: new Gpio(pinA, {
+      encoder: new Gpio(17, {
       mode: Gpio.INPUT,
       pullUpDown: Gpio.PUD_DOWN,
       edge: Gpio.EITHER_EDGE,
