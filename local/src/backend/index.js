@@ -7,9 +7,10 @@ var obtains = [
 
 obtain(obtains, ({ Encoder }, { Scale }, { Driver }, { Gpio })=> {
   if (!window.backend) {
+    var test = new Gpio(4, 'in', 'both');
     window.backend = {
       driver: {},
-      encoder: new Gpio(4, 'in', 'both'),//encoder: new Encoder(17, 27),
+      encoder: {},//encoder: new Encoder(17, 27),
       scale: new Scale(),
     };
 
