@@ -19,6 +19,15 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
     console.log(`New value is ${scale.value}`);
   };*/
 
+  const electron = require('electron');
+  const dialog = electron.dialog;
+
+  // Disable error dialogs by overriding
+  // FIX: https://goo.gl/YsDdsS
+  dialog.showErrorBox = function (title, content) {
+      console.log(`${title}\n${content}`);
+    };
+
   exports.app.start = ()=> {
     if (process.platform == 'darwin') {
       µ('.rotator')[0].className = 'normal';
