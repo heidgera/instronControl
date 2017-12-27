@@ -3,7 +3,7 @@ var process = require('electron').remote.process;
 
 process.on('uncaughtException', (err)=> {
   console.error(err);
-  console.log(`Throw error! ${err.message}`);
+  console.log(`Throw error! ${err}`);
   for (var val in err) {
     if (err.hasOwnProperty(val)) {
       console.log(`${val}: ${err[val]}`);
