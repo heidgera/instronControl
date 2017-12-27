@@ -9,8 +9,8 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
   console.log(window);
   if (!window.backend) {
     window.backend = {
-      driver: new Driver(25),
-      encoder: new Encoder(17, 27),
+      // driver: new Driver(25),
+      // encoder: new Encoder(17, 27),
       scale: new Scale(),
     };
   }
