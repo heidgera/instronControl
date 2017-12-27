@@ -1,15 +1,31 @@
 
 var process = require('electron').remote.process;
 
-process.on('uncaughtException', (err)=> {
-  console.error(err);
-  console.log(`Throw error! ${err}`);
-  for (var val in err) {
-    if (err.hasOwnProperty(val)) {
-      console.log(`${val}: ${err[val]}`);
-    }
-  }
-});
+var error = function (error) {
+        debugger;
+        console.error(error);
+        var msg = {
+            /*type : "error",
+            title : "Uncaught Exception",
+            buttons:["ok", "close"],*/
+            width: 400,
+          };
+
+        switch (typeof error) {
+          case 'object':
+            msg.title = 'Uncaught Exception: ' + error.code;
+            msg.message = error.message;
+          break;
+          case 'string':
+            msg.message = error;
+          break;
+        }
+        msg.detail = 'Please check the console log for more details.';
+
+        console.log(msg);
+      };
+
+process.on('uncaughtException', error);
 
 var obtains = [
   `µ/components`,
