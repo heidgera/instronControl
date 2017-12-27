@@ -2,18 +2,14 @@ var obtains = [
   './src/backend/encoder.js',
   './src/backend/loadCell.js',
   './src/backend/motorDriver.js',
-  'pigpio',
+  'onoff',
 ];
 
 obtain(obtains, ({ Encoder }, { Scale }, { Driver }, { Gpio })=> {
   if (!window.backend) {
     window.backend = {
       driver: {},
-      encoder: new Gpio(17, {
-        mode: Gpio.INPUT,
-        pullUpDown: Gpio.PUD_DOWN,
-        edge: Gpio.EITHER_EDGE,
-      }),//encoder: new Encoder(17, 27),
+      encoder: new Gpio(4, 'in', 'both'),//encoder: new Encoder(17, 27),
       scale: new Scale(),
     };
 
