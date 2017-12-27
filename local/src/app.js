@@ -3,9 +3,10 @@
 var obtains = [
   'µ/components',
   `./src/interface/wifiConfig/wifiControl.js`,
+  'µ/components/refDiv.js',
 ];
 
-obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
+obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, refDiv)=> {
   exports.app = {};
 
   //var encoder = new Encoder(17, 27);
