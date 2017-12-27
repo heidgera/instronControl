@@ -20,12 +20,12 @@ obtain(['child_process', './../piFig/src/wifi.js'], ({ exec }, wifi)=> {
     } else {
       console.log('requesting SSIDs');
       console.log(`sudo iwlist wlan0 scan | awk -F ':' '/ESSID:/ {print $2;}'`);
-      exec(`sudo iwlist wlan0 scan | awk -F ':' '/ESSID:/ {print $2;}'`, (err, stdout, stderr)=> {
+      console.log(exec("sudo iwlist wlan0 scan | awk -F ':' '/ESSID:/ {print $2;}'", (err, stdout, stderr)=> {
         if (err) console.log(err);
         var lines = stdout.split('\n');
         console.log(stdout);
-        cb(0, lines.map(val=>val.replace('"', '')));
-      });
+        cb(0, lines.map(val=>val.split('"').join('')));
+      }));
     }
   };
 

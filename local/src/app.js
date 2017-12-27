@@ -31,7 +31,8 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu })=> {
 
     document.onkeyup = (e)=> {
       if (e.which == 27) {
-        process.kill(process.pid, 'SIGINT'); //doesn't actually kill, just sends signal
+        //process.kill(process.pid, 'SIGINT'); //doesn't actually kill, just sends signal
+        process.exit(0);
       } else if (e.which == 73 && e.getModifierState('Control') &&  e.getModifierState('Shift')) {
         require('electron').remote.getCurrentWindow().toggleDevTools();
       }
