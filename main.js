@@ -60,9 +60,19 @@ function createWindow() {
   });
 }
 
-/*process.on('uncaughtException', (err)=> {
-  console.log(err.message);
-});*/
+process.on('uncaughtException', function (e) {
+    console.group('Node uncaughtException');
+    if (!!e.message) {
+      console.log(e.message);
+    }
+
+    if (!!e.stack) {
+      console.log(e.stack);
+    }
+
+    console.log(e);
+    console.groupEnd();
+  });
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

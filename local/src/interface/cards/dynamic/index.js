@@ -5,10 +5,11 @@ var obtains = [
   `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
 ];
 
-obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, config }, { Import })=> {
 
   Import.onready = ()=> {
     var excur = µ('#totExc');
+    var pointFreq = µ('#pointFreq');
     var email = µ('#email');
     var speed = µ('#speed', Import.refDiv);
 
@@ -32,8 +33,42 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
       }
     });
 
+    var dynamicTest = ()=> {
+      encoder.reset();
+      scale.tare();
+      scale.setReadInterval(100);
+
+      µ('#dynamicOL').show = true;
+
+      var data = [];
+
+      var onEnd = ()=> {
+        // handle email, etc
+        console.log(data);
+      };
+
+      encoder.onCountChange = (count)=> {
+        if (!(count % (config.pulsesPerInch / pointFreq.value))) {
+          data.push({ count: count, force: scale.value });
+        }
+
+        if (count >= (config.pulsesPerInch * excur.value)) {
+          driver.ramp(0, 100);
+          onEnd();
+        }
+      };
+
+      var dir = parseInt(µ('input[name="dynamicDirection"]:checked')[0].value);
+      console.log('dir');
+      debugger;
+      driver.ramp(dir * config.maxSpeed * (speed.value / 100.), 500);
+    };
+
     µ('#dynamicRun').onclick = ()=> {
-      if (!excur.value) {
+      if (!pointFreq.value) {
+        µ('#growl').message('Please specify a data record frequency', 'warn');
+        return;
+      } else if (!excur.value) {
         µ('#growl').message('Please specify desired distance', 'warn');
         return;
       } else if (!µ('input[name="dynamicDirection"]:checked').length) {
@@ -44,7 +79,9 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
         return;
       }
 
-      //// code for running the static loading
+      //// code for running the dynamic test
+      dynamicTest();
     };
+
   };
 });

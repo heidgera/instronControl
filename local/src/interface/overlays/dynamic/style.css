@@ -1,0 +1,27 @@
+.spinner {
+  display: inline-block;
+  background-image: url('../../../../assets/loading.png');
+  background-size: cover;
+  width: 40vmin;
+  height: 40vmin;
+  margin: 10vmax;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#dynamicOL .spinner {
+  animation: 3s infinite linear spin;
+}
+
+#dynamicOL .cancel {
+  background-color: #700;
+  color: #fff;
+}

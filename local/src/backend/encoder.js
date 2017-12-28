@@ -23,7 +23,7 @@ obtain(['pigpio'], ({ Gpio })=> {
           if (signals[1].state) count++;
           else count--;
 
-          if (count % 100) µ('#growl').message(count, 'success');
+          this.onCountChange(count);
         }
       });
     });
@@ -31,6 +31,8 @@ obtain(['pigpio'], ({ Gpio })=> {
     this.reset = ()=> {
       count = 0;
     };
+
+    this.onCountChange = (next)=> {};
 
     this.close = ()=> {
       //signals.forEach(signal => signal.unexport());

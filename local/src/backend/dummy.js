@@ -20,6 +20,10 @@ obtain(['./src/backend/loadCell.js'], ({ Scale })=> {
         close: ()=> { console.log('Close encoder');},
       },
       scale: new Scale(),
+      config: {
+        pulsesPerInch: 1000,
+        maxSpeed: 1,
+      },
     };
 
     window.backend.driver.onReady = ()=> {
@@ -30,4 +34,5 @@ obtain(['./src/backend/loadCell.js'], ({ Scale })=> {
   exports.driver = window.backend.driver;
   exports.encoder = window.backend.encoder;
   exports.scale = window.backend.scale;
+  exports.config = window.backend.config;
 });

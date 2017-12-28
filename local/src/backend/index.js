@@ -10,6 +10,10 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
       driver: new Driver(25),
       encoder: new Encoder(17, 27),
       scale: new Scale(),
+      config: {
+        pulsesPerInch: 1000,
+        maxSpeed: 1,
+      },
     };
 
     window.backend.driver.onReady = ()=> {
@@ -20,4 +24,5 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
   exports.driver = window.backend.driver;
   exports.encoder = window.backend.encoder;
   exports.scale = window.backend.scale;
+  exports.config = window.backend.config;
 });
