@@ -9,7 +9,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { Import })=> {
     ov.onCancel = ()=> {};
 
     ov.setProgress = (perc)=> {
-      µ('.progress', ov).style.width = perc + '%';
+      µ('.progress', ov).style.width = (perc * 100) + '%';
+      µ('.progressBar', ov).textContent = perc;
     };
 
     Object.defineProperty(ov, 'show', {
