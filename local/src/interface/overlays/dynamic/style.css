@@ -1,12 +1,3 @@
-.spinner {
-  display: inline-block;
-  background-image: url('../../../../assets/loading.png');
-  background-size: cover;
-  width: 40vmin;
-  height: 40vmin;
-  margin: 10vmax;
-}
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -18,7 +9,24 @@
 }
 
 #dynamicOL .spinner {
+  display: inline-block;
+  background-image: url('../../../../assets/loading.png');
+  background-size: cover;
+  width: 40vmin;
+  height: 40vmin;
+  margin: 15vmax;
+}
+
+#dynamicOL[show] .spinner {
   animation: 3s infinite linear spin;
+}
+
+#dynamicOL .progressBar {
+  display: inline-block;
+  height: 3vmax;
+  width: 75vmin;
+  border: 1px solid black;
+  margin: 5vmax;
 }
 
 #dynamicOL .cancel {

@@ -174,13 +174,14 @@ muse-growl.success {
 	width: 100vmin;
 	height: 100vmax;
 	z-index: 10000;
-	background-color: rgba(0,0,0,.25);
-	opacity: 1;
+	background-color: rgba(0,0,0,.5);
+	opacity: 0;
 	pointer-events: none;
-	transition: opacity 1s ease;
+	transition: opacity .25s ease;
 	font-size: 2em;
 }
 
 .overlay[show] {
 	opacity: 1;
+	pointer-events: all;
 }

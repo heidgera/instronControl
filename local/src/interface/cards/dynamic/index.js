@@ -33,6 +33,12 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       }
     });
 
+    µ('#dynamicOL').onready = ()=> {
+      µ('#dynamicOL').onCancel = ()=> {
+        driver.ramp(0, 100);
+      };
+    };
+
     var dynamicTest = ()=> {
       encoder.reset();
       scale.tare();
@@ -60,7 +66,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
       var dir = parseInt(µ('input[name="dynamicDirection"]:checked')[0].value);
       console.log('dir');
-      debugger;
       driver.ramp(dir * config.maxSpeed * (speed.value / 100.), 500);
     };
 
