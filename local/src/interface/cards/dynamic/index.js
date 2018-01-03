@@ -54,6 +54,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       };
 
       var totalExc = config.pulsesPerInch * parseFloat(excur.value);
+      var
 
       µ('#mainMenu').title = (totalExc / 100);
       encoder.onCountChange = (count)=> {
@@ -68,8 +69,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         }
 
         if (!(count % (totalExc / 100))) {
+          µ('#mainMenu').title = count / (totalExc);
           ov.setProgress(count / (totalExc));
-          if (!(count % 100))µ('#mainMenu').title = count / (totalExc);
         }
       };
 
