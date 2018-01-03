@@ -56,19 +56,19 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       µ('#mainMenu').title = config.pulsesPerInch * parseFloat(excur.value);
 
       encoder.onCountChange = (count)=> {
+        count = Math.abs(count);
         if (!(count % (config.pulsesPerInch / parseFloat(pointFreq.value)))) {
           data.push({ count: count, force: scale.value });
         }
 
-        if (Math.abs(count) >= (config.pulsesPerInch * parseFloat(excur.value))) {
+        if (count >= (config.pulsesPerInch * parseFloat(excur.value))) {
           driver.ramp(0, 100);
           onEnd();
         }
 
-        if (!(count % 100))µ('#mainMenu').title = count;
-
         if (!(count % (config.pulsesPerInch * parseFloat(excur.value) / 100))) {
           ov.setProgress(count / (config.pulsesPerInch * parseFloat(excur.value)));
+          if (!(count % 100))µ('#mainMenu').title = count / (config.pulsesPerInch * parseFloat(excur.value));
         }
       };
 
