@@ -53,22 +53,23 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         console.log(data);
       };
 
-      µ('#mainMenu').title = config.pulsesPerInch * parseFloat(excur.value);
+      var totalExc = config.pulsesPerInch * parseFloat(excur.value);
 
+      µ('#mainMenu').title = (totalExc / 100);
       encoder.onCountChange = (count)=> {
         count = Math.abs(count);
         if (!(count % (config.pulsesPerInch / parseFloat(pointFreq.value)))) {
           data.push({ count: count, force: scale.value });
         }
 
-        if (count >= (config.pulsesPerInch * parseFloat(excur.value))) {
+        if (count >= totalExc) {
           driver.ramp(0, 100);
           onEnd();
         }
 
-        if (!(count % (config.pulsesPerInch * parseFloat(excur.value) / 100))) {
-          ov.setProgress(count / (config.pulsesPerInch * parseFloat(excur.value)));
-          if (!(count % 100))µ('#mainMenu').title = count / (config.pulsesPerInch * parseFloat(excur.value));
+        if (!(count % (totalExc / 100))) {
+          ov.setProgress(count / (totalExc));
+          if (!(count % 100))µ('#mainMenu').title = count / (totalExc);
         }
       };
 
