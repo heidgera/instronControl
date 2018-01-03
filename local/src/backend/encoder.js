@@ -1,5 +1,6 @@
 obtain(['pigpio'], ({ Gpio })=> {
   exports.Encoder = function (pinA, pinB) {
+    var _this = this;
     var count = 0;
     Object.defineProperty(this, 'count', {
       get: ()=>count,
@@ -23,7 +24,7 @@ obtain(['pigpio'], ({ Gpio })=> {
           if (signals[1].state) count++;
           else count--;
 
-          this.onCountChange(count);
+          _this.onCountChange(count);
         }
       });
     });
