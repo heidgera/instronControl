@@ -22,11 +22,24 @@
 }
 
 #dynamicOL .progressBar {
+  position: relative;
+  top:0;
+  left: 0;
   display: inline-block;
   height: 3vmax;
   width: 75vmin;
   border: 1px solid black;
   margin: 5vmax;
+}
+
+#dynamicOL .progress {
+  position: absolute;
+  display: inline-block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  left:0;
+  width: 0;
 }
 
 #dynamicOL .cancel {

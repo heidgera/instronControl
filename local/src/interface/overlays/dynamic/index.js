@@ -8,6 +8,10 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { Import })=> {
 
     ov.onCancel = ()=> {};
 
+    ov.setProgress = (perc)=> {
+      µ('.progress', ov).style.width = perc + '%';
+    };
+
     Object.defineProperty(ov, 'show', {
       get: function () {
         return (µ(`|>show`, ov) == '');

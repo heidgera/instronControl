@@ -62,6 +62,10 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
           driver.ramp(0, 100);
           onEnd();
         }
+
+        if (!(count % (config.pulsesPerInch * excur.value / 100))) {
+          ov.setProgress(count / (config.pulsesPerInch * excur.value));
+        }
       };
 
       var dir = parseInt(µ('input[name="dynamicDirection"]:checked')[0].value);
