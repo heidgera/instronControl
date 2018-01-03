@@ -54,7 +54,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       };
 
       var totalExc = config.pulsesPerInch * parseFloat(excur.value);
-      var
 
       µ('#mainMenu').title = (totalExc / 100);
       encoder.onCountChange = (count)=> {
