@@ -65,7 +65,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
           onEnd();
         }
 
-        if (!(count % 100)) µ('#mainMenu').title = count;
+        µ('#mainMenu').title = count;
 
         if (!(count % (config.pulsesPerInch * parseFloat(excur.value) / 100))) {
           ov.setProgress(count / (config.pulsesPerInch * parseFloat(excur.value)));

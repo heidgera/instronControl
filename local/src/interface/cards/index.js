@@ -29,7 +29,7 @@ var obtains = [
   `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
 ];
 
-obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder }, { Import })=> {
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, config }, { Import })=> {
   Import.onready = (e)=> {
 
     /////////// Function to handle clicks on input divs /////////////
