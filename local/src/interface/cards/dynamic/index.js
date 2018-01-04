@@ -64,6 +64,9 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
         if (count >= totalExc) {
           driver.ramp(0, 100);
+          encoder.onCountChange = ()=> {};
+
+          µ('#dynamicOL').show = false;
           onEnd();
         }
 

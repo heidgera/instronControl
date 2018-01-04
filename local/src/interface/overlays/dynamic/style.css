@@ -26,10 +26,13 @@
   top:0;
   left: 0;
   display: inline-block;
-  height: 3vmax;
+  height: 2vmax;
   width: 75vmin;
   border: 1px solid black;
   margin: 5vmax;
+  border-radius: 1vmax;
+  overflow: hidden;
+  background-color: #333;
 }
 
 #dynamicOL .progress {
@@ -39,7 +42,8 @@
   left: 0;
   height: 100%;
   left:0;
-  width: 0;
+  width: 50%;
+  background-color: rgba(0,200,255,.75);
 }
 
 #dynamicOL .cancel {
