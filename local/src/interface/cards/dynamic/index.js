@@ -50,7 +50,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
       var updateInt = setInterval(()=> {
         µ('#mainMenu').title = scale.value;
-        µ('#dynamicOL').setProgress(count / (totalExc));
+        µ('#dynamicOL').setProgress(encoder.count / (totalExc));
       }, 200);
 
       var onEnd = ()=> {
