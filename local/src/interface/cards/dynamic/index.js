@@ -70,7 +70,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         }
 
         if (!(count % (totalExc / 100))) {
-          ov.setProgress(count / (totalExc));
+          µ('#dynamicOL').setProgress(count / (totalExc));
         }
       };
 

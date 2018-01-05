@@ -113,8 +113,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, config }, 
           var startPerc = 0;
 
           var onPress = (e)=> {
-            µ('#dynamicOL').setProgress(startPerc);
-            startPerc += .1;
+            // µ('#dynamicOL').setProgress(startPerc);
+            // startPerc += .1;
             if (e.target.className.includes('Down')) driver.ramp(-1);
             else driver.ramp(1);
           };
