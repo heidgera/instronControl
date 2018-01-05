@@ -8,6 +8,11 @@ var obtains = [
 obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, config }, { Import })=> {
 
   Import.onready = ()=> {
+    scale.setReadInterval(100);
+    var updateInt = setInterval(()=> {
+      µ('#mainMenu').title = scale.value;
+      //µ('#dynamicOL').setProgress(encoder.count / (totalExc));
+    }, 200);
     var excur = µ('#totExc');
     var pointFreq = µ('#pointFreq');
     var email = µ('#email');
