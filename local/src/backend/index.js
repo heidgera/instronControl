@@ -11,7 +11,7 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
       encoder: new Encoder(17, 27),
       scale: new Scale(),
       config: {
-        pulsesPerInch: 5970,
+        pulsesPerInch: 5685,
         maxSpeed: .5,
       },
     };
