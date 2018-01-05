@@ -70,6 +70,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         }
 
         if (!(count % (totalExc / 100))) {
+          µ('#mainMenu').title = scale.value;
           µ('#dynamicOL').setProgress(count / (totalExc));
         }
       };
