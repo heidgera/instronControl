@@ -174,7 +174,7 @@ muse-growl.success {
 	width: 100vmin;
 	height: 100vmax;
 	z-index: 10000;
-	background-color: rgba(0,0,0,.5);
+	background-color: rgba(0,0,0,.75);
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity .25s ease;

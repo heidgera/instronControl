@@ -110,7 +110,11 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, config }, 
           var up = µ('.jogUp', card)[0];
           var down = µ('.jogDown', card)[0];
 
+          var startPerc = 0;
+
           var onPress = (e)=> {
+            µ('#dynamicOL').setProgress(startPerc);
+            startPerc += .1;
             if (e.target.className.includes('Down')) driver.ramp(-1);
             else driver.ramp(1);
           };
