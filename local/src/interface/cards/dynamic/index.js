@@ -55,7 +55,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
       var onEnd = ()=> {
         // handle email, etc
-        clearInterval(updateInt);
+        //clearInterval(updateInt);
         console.log(data);
       };
 
