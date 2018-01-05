@@ -48,8 +48,14 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
       var data = [];
 
+      var updateInt = setInterval(()=> {
+        µ('#mainMenu').title = scale.value;
+        µ('#dynamicOL').setProgress(count / (totalExc));
+      }, 200);
+
       var onEnd = ()=> {
         // handle email, etc
+        clearInterval(updateInt);
         console.log(data);
       };
 
@@ -69,10 +75,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
           onEnd();
         }
 
-        if (!(count % (totalExc / 100))) {
-          µ('#mainMenu').title = scale.value;
-          µ('#dynamicOL').setProgress(count / (totalExc));
-        }
       };
 
       var dir = parseInt(µ('input[name="dynamicDirection"]:checked')[0].value);
