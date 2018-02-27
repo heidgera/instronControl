@@ -1,23 +1,15 @@
 'use strict';
 
+var process = require('electron').remote.process;
+
 var obtains = [
   'µ/components',
   `./src/interface/wifiConfig/wifiControl.js`,
+  `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
 ];
 
-obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
+obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, { encoder, driver })=> {
   exports.app = {};
-
-  //var encoder = new Encoder(17, 27);
-
-  //var scale = new Scale();
-
-  //scale.setReadInterval(50);
-  //scale.setPrecision(1);
-
-  /*scale.onRead = ()=> {
-    console.log(`New value is ${scale.value}`);
-  };*/
 
   exports.app.start = ()=> {
     if (process.platform == 'darwin') {
@@ -32,8 +24,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
 
     document.onkeyup = (e)=> {
       if (e.which == 27) {
-        //process.kill(process.pid, 'SIGINT'); //doesn't actually kill, just sends signal
-        process.exit(0);
+        process.kill(process.pid, 'SIGINT'); //doesn't actually kill, just sends signal
       } else if (e.which == 73 && e.getModifierState('Control') &&  e.getModifierState('Shift')) {
         require('electron').remote.getCurrentWindow().toggleDevTools();
       }
@@ -41,7 +32,8 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi)=> {
 
     process.on('SIGINT', ()=> {
       //cleanup funcitons here
-      //encoder.close();
+      encoder.close();
+      driver.close();
       process.nextTick(function () { process.exit(0); });
     });
   };

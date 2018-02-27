@@ -16,6 +16,8 @@ obtain(obtains, ({ Encoder }, { Scale }, { Driver })=> {
       },
     };
 
+    window.backend.scale.setReadInterval(100);
+
     window.backend.driver.onReady = ()=> {
       console.log('Motor ready');
     };

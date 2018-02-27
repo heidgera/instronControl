@@ -2,17 +2,13 @@ var process = require('electron').remote.process;
 
 var obtains = [
   `µ/components`,
+  'µ/google',
   `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
 ];
 
-obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, config }, { Import })=> {
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { driver, encoder, scale, config }, { Import })=> {
 
   Import.onready = ()=> {
-    scale.setReadInterval(100);
-    var updateInt = setInterval(()=> {
-      µ('#mainMenu').title = scale.value;
-      //µ('#dynamicOL').setProgress(encoder.count / (totalExc));
-    }, 200);
     var excur = µ('#totExc');
     var pointFreq = µ('#pointFreq');
     var email = µ('#email');
@@ -47,7 +43,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
     var dynamicTest = ()=> {
       encoder.reset();
       scale.tare();
-      scale.setReadInterval(100);
 
       µ('#dynamicOL').show = true;
 
@@ -58,10 +53,51 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         µ('#dynamicOL').setProgress(encoder.count / (totalExc));
       }, 200);
 
+      var createOrGetFile = (name, parentFolderId, cb)=> {
+        drive.listFiles({
+          parentId: parentFolderId,
+          fields: 'files(id)',
+          queryString: `name = '${name}'`,
+        }, (files)=> {
+          //console.log(files);
+          if (files && files.length) cb(files[0]);
+          else {
+            sheets.createSheet({
+              title: name,
+            }, (file)=> {
+                console.log(file);
+                drive.moveFile({
+                  fileId: file.spreadsheetId,
+                  parentId: parentFolderId,
+                }, ()=> {
+                  cb(file);
+                });
+              });
+          }
+        });
+      };
+
       var onEnd = ()=> {
         // handle email, etc
-        //clearInterval(updateInt);
-        console.log(data);
+        clearInterval(updateInt);
+        createOrGetFile(
+          `DynamicTest ${new Date(Date.now()).toLocaleString('en-US')}`,
+          '18YZXzXFi1fkjhyYAcd_4GhH49vT1nL6_',
+          (file)=> {
+            // have spreadsheetId here
+            var cellData = data.map(cell=>[cell.count, cell.force]);
+            sheets.putData(file.spreadsheetId, 'Sheet1!A1:E', cellData, ()=> {
+              //console.log(file);
+              gmail.sendMessage({
+                from: 'instron.control@gmail.com',
+                to: email.value,
+                subject: 'New Instron DynamicTest Data',
+                body: `New data has been created: ${file.spreadsheetUrl}`,
+              });
+            });
+          }
+        );
+        //console.log(data);
       };
 
       var totalExc = config.pulsesPerInch * parseFloat(excur.value);

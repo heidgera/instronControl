@@ -11,6 +11,8 @@ obtain(['./src/backend/loadCell.js'], ({ Scale })=> {
         backward: (val)=> { console.log(`Motor backward at ${val}`);},
 
         stop: (val)=> { console.log(`Stopping Motor`);},
+
+        close: ()=> { console.log('Close driver');},
       },
       encoder: {
         reset: ()=> { console.log(`Reset encoder`);},
