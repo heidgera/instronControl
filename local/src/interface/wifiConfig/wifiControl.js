@@ -30,6 +30,7 @@ obtain(['child_process', './../piFig/src/wifi.js'], ({ exec }, wifi)=> {
 
   exports.connect = ({ ssid, password }, cb)=> {
     if (process.platform != 'darwin') {
+      console.log(`ssid: ${ssid}, password: ${password}`);
       wifi.configure(ssid, password);
       exec('sudo service networking restart', (err, std, stderr)=> {
         //console.log(std);
