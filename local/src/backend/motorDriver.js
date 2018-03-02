@@ -57,7 +57,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
     };
 
     _this.backward = (speed)=> {
-      if (!_this.eStopped && (_this.limited != -1) {
+      if (!_this.eStopped && (_this.limited != -1)) {
         clearInterval(_this.rampInt);
         var data = Math.min(1, Math.max(0, speed));
         _this.currentSpeed = -1 * data;
@@ -87,6 +87,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
         console.log('E-Stop Pressed.');
         _this.stop();
       }
+
       _this.eStopped = !val;
     });
 
