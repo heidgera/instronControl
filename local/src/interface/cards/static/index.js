@@ -5,7 +5,7 @@ var obtains = [
   `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
 ];
 
-obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, config }, { Import })=> {
 
   Import.onready = ()=> {
     var load = µ('#setPoint');
@@ -36,9 +36,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver }, { Import })=> {
 
       var scaleInt = setInterval(()=> {
         var weight = scale.value * loadDir;
-        if (Math.abs(weight - target) >= Math.abs(weight - target)) {
-
-        }
 
         if (weight < target * .9) {
           driver.run((Math.abs(driver.currentSpeed) + .1) * dir);
