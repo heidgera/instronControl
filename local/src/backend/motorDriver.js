@@ -48,7 +48,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
     };
 
     _this.forward = (speed)=> {
-      if (!_this.eStopped && (_this.limited != 1) {
+      if (!_this.eStopped && (_this.limited != 1)) {
         clearInterval(_this.rampInt);
         var data = Math.min(1, Math.max(0, speed));
         _this.currentSpeed = data;
