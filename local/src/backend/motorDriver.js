@@ -82,24 +82,47 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
 
     drive.open({ name: 'ttyS0', baud: 9600 });
 
+    _this.onEStop = ()=> {};
+
+    _this.onEStopClear = ()=> {};
+
+    _this.onLimit = ()=> {};
+
+    _this.onLimitClear = ()=> {};
+
+    var eStopDebounce = null;
+    var limitDebounce = null;
+
     eStop.watch((err, val)=> {
-      if (!val) {
-        console.log('E-Stop Pressed.');
-        _this.stop();
-      }
+      clearTimeout(eStopDebounce);
+      eStopDebounce = setTimeout(()=> {
+        if (!val) {
+          _this.stop();
+          console.log('E-Stop Pressed.');
+          _this.onEStop();
+        } else {
+          console.log('E-Stop Cleared');
+          _this.onEStopClear();
+        }
+      }, 50);
 
       _this.eStopped = !val;
     });
 
     limit.watch((err, val)=> {
-      if (!val) {
-        _this.limited = _this.currentSpeed / Math.abs(_this.currentSpeed);
-        console.log('Limit switch pressed.');
-        _this.stop();
-      } else {
-        _this.limited = 0;
-        console.log('No longer limited');
-      }
+      clearTimeout(limitDebounce);
+      limitDebounce = setTimeout(()=> {
+        if (!val) {
+          _this.limited = _this.currentSpeed / Math.abs(_this.currentSpeed);
+          _this.stop();
+          console.log('Limit Pressed.');
+          _this.onLimit();
+        } else {
+          console.log('Limit Cleared');
+          _this.limited = 0;
+          _this.onLimitClear();
+        }
+      }, 50);
     });
 
     _this.close = ()=> {

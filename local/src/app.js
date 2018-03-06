@@ -11,6 +11,14 @@ var obtains = [
 obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, { encoder, driver })=> {
   exports.app = {};
 
+  driver.onEStop = ()=> {
+    µ('#growl').message('E-Stop Pressed', 'warn');
+  };
+
+  driver.onEStopClear = ()=> {
+    µ('#growl').message('E-Stop released', 'success');
+  };
+
   exports.app.start = ()=> {
     if (process.platform == 'darwin') {
       µ('.rotator')[0].className = 'normal';
