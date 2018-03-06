@@ -1,6 +1,9 @@
 'use strict';
 
-var process = require('electron').remote.process;
+var { remote } = require('electron').remote;
+var process = remote.process;
+
+remote.getCurrentWindow().closeDevTools();
 
 var obtains = [
   'µ/components',
