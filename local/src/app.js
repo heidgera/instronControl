@@ -1,6 +1,6 @@
 'use strict';
 
-var { remote } = require('electron').remote;
+var { remote } = require('electron');
 var process = remote.process;
 
 remote.getCurrentWindow().closeDevTools();
