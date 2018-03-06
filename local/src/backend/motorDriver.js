@@ -96,7 +96,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
     eStop.watch((err, val)=> {
       clearTimeout(eStopDebounce);
       eStopDebounce = setTimeout(()=> {
-        if (!val) {
+        if (val) {
           _this.stop();
           console.log('E-Stop Pressed.');
           _this.onEStop();
