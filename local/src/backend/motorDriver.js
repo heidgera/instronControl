@@ -16,6 +16,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
 
     _this.enable = ()=> {
       stopPin.writeSync(0);
+      console.log('enable motor driver');
     };
 
     _this.disable = ()=> {
