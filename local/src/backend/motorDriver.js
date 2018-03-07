@@ -8,15 +8,15 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
     var eStop = new Gpio(eStopPin, 'in', 'both');
     var stop = new Gpio(stopPin, 'out');
 
-    stop.writeSync(1);
+    stop.writeSync(0);
 
     _this.currentSpeed = 0;
     _this.limited = 0;
     _this.eStopped = 0;
 
     var writeToController = (command, data)=> {
-      if (data != 0) stop.writeSync(0);
-      else stop.writeSync(1);
+      //if (data != 0) stop.writeSync(0);
+      //else stop.writeSync(1);
 
       drive.send([128, command, data, (128 + command + data) & 0b01111111]);
     };
@@ -114,7 +114,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
       limitDebounce = setTimeout(()=> {
         if (!val) {
           _this.limited = _this.currentSpeed / Math.abs(_this.currentSpeed);
-          _this.stop();
+          //_this.stop();
           console.log('Limit Pressed.');
           _this.onLimit();
         } else {
