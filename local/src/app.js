@@ -30,7 +30,8 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, { encoder, driver })=> 
     console.log('started');
 
     document.onkeydown = (e)=> {
-      if (e.key == ' ') console.log('Space pressed');
+      if (e.key == ' ') driver.enable();
+      if (e.key == 's') driver.disable();
     };
 
     document.onkeyup = (e)=> {

@@ -1,18 +1,26 @@
 obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { sign })=> {
-  exports.Driver = function (limitPin, eStopPin, stopPin) {
+  exports.Driver = function (limitPin, eStopPin, stopPhysicalPin) {
     var _this = this;
 
     var drive = new Serial();
     //var drive = new Gpio(outputPin, { mode: Gpio.OUTPUT });
     var limit = new Gpio(limitPin, 'in', 'both');
     var eStop = new Gpio(eStopPin, 'in', 'both');
-    var stopPin = new Gpio(stopPin, 'out');
+    var stopPin = new Gpio(stopPhysicalPin, 'out');
 
     stopPin.writeSync(1);
 
     _this.currentSpeed = 0;
     _this.limited = 0;
     _this.eStopped = 0;
+
+    _this.enable = ()=> {
+      stopPin.writeSync(0);
+    };
+
+    _this.disable = ()=> {
+      stopPin.writeSync(1);
+    };
 
     var writeToController = (command, data)=> {
       if (data > 0 || data < 0) stopPin.writeSync(0);
