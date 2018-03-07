@@ -8,7 +8,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
     var eStop = new Gpio(eStopPin, 'in', 'both');
     var stop = new Gpio(stopPin, 'out');
 
-    stop.writeSync(0);
+    stop.writeSync(1);
 
     _this.currentSpeed = 0;
     _this.limited = 0;
