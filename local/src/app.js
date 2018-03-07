@@ -32,7 +32,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, { encoder, driver })=> 
     document.onkeydown = (e)=> {
       if (e.key == ' ') driver.enable();
       if (e.key == 's') driver.disable();
-      if (e.key == '1') writeToController(1, 64);;
+      if (e.key == '1') driver.forceDrive(.5);;
     };
 
     document.onkeyup = (e)=> {
