@@ -129,7 +129,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
       _this.stop();
       eStop.unexport();
       limit.unexport();
-      stop.unexport();
+      stopPin.unexport();
     };
   };
 });
