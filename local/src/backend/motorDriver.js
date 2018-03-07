@@ -6,17 +6,17 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
     //var drive = new Gpio(outputPin, { mode: Gpio.OUTPUT });
     var limit = new Gpio(limitPin, 'in', 'both');
     var eStop = new Gpio(eStopPin, 'in', 'both');
-    var stop = new Gpio(stopPin, 'out');
+    var stopPin = new Gpio(stopPin, 'out');
 
-    stop.writeSync(1);
+    stopPin.writeSync(1);
 
     _this.currentSpeed = 0;
     _this.limited = 0;
     _this.eStopped = 0;
 
     var writeToController = (command, data)=> {
-      if (data != 0) stop.writeSync(0);
-      else stop.writeSync(1);
+      if (data > 0 || data < 0) stopPin.writeSync(0);
+      else stopPin.writeSync(1);
 
       drive.send([128, command, data, (128 + command + data) & 0b01111111]);
     };
