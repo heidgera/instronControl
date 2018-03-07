@@ -15,7 +15,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
     _this.eStopped = 0;
 
     var writeToController = (command, data)=> {
-      if (data) stop.writeSync(0);
+      if (data != 0) stop.writeSync(0);
       else stop.writeSync(1);
 
       drive.send([128, command, data, (128 + command + data) & 0b01111111]);
