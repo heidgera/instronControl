@@ -3,7 +3,7 @@
 var { remote } = require('electron');
 var process = remote.process;
 
-remote.getCurrentWindow().closeDevTools();
+//remote.getCurrentWindow().closeDevTools();
 
 var obtains = [
   'µ/components',
