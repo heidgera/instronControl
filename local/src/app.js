@@ -15,7 +15,7 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, { encoder, driver })=> 
   exports.app = {};
 
   driver.onEStop = ()=> {
-    µ('#growl').message('E-Stop Pressed', 'warn');
+    µ('#growl').message('E-Stop Pressed', 'warn', true);
   };
 
   driver.onEStopClear = ()=> {
