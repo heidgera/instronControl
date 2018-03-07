@@ -89,7 +89,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
       _this.onReady();
     };
 
-    drive.open({ name: 'ttyAMA0', baud: 9600 });
+    drive.open({ name: 'ttyS0', baud: 9600 });
 
     _this.onEStop = ()=> {};
 
