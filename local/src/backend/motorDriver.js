@@ -49,7 +49,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
     };
 
     _this.ramp = (newSpeed, time = 1000) => {
-      if (!_this.eStopped && (_this.limited != sign(speed) || speed == 0)) {
+      if (!_this.eStopped && (_this.limited != sign(newSpeed) || newSpeed == 0)) {
         newSpeed = Math.min(1, Math.max(-1, newSpeed));
         var inc = (newSpeed - _this.currentSpeed) / 100;
         clearInterval(_this.rampInt);
