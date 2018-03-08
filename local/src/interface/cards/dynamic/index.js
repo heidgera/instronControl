@@ -53,8 +53,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
       console.log(`Total number of counts expected ${totalExc}`);
 
       var updateInt = setInterval(()=> {
-        µ('#mainMenu').title = scale.value;
-        µ('#dynamicOL').setProgress(encoder.count / (totalExc));
+        //µ('#mainMenu').title = scale.value;
+        µ('#dynamicOL').setProgress(Math.abs(encoder.count) / (totalExc));
       }, 200);
 
       var createOrGetSheet = (name, parentFolderId, cb)=> {
