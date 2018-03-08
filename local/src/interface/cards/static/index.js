@@ -38,23 +38,14 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
       var startTime = Date.now();
 
-      var endTO = setTimeout(finish, runtime * 1000);
+      var endTO = setTimeout(finish, runtime * 60000);
 
       µ('#staticOL').show = true;
-
-      var finish = ()=> {
-        clearInterval(scaleInt);
-        clearTimeout(endTO);
-        µ('#staticOL').show = false;
-        driver.stop();
-      };
-
-      µ('#staticOL').onCancel = finish;
 
       var scaleInt = setInterval(()=> {
         var weight = scale.value * loadDir;
 
-        µ('#staticOL').setProgress(((Date.now() - startTime) / 1000) / runtime);
+        µ('#staticOL').setProgress((Date.now() - startTime) / (runtime * 60000));
 
         if (weight < target * .9) {
           driver.ramp((Math.abs(driver.currentSpeed) + .01) * dir);
@@ -64,6 +55,15 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
           driver.ramp(0);
         }
       }, 200);
+
+      var finish = ()=> {
+        clearInterval(scaleInt);
+        clearTimeout(endTO);
+        µ('#staticOL').show = false;
+        driver.stop();
+      };
+
+      µ('#staticOL').onCancel = finish;
 
       encoder.onCountChange = (count)=> {
         if (Math.abs(count) > parseFloat(excur.value) * config.pulsesPerInch) {
