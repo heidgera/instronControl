@@ -107,7 +107,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
 
       encoder.onCountChange = (count)=> {
         count = Math.abs(count);
-        if (!(count % (config.pulsesPerInch / parseFloat(pointFreq.value)))) {
+        if (!(Math.abs(count) % (config.pulsesPerInch / parseFloat(pointFreq.value)))) {
           data.push({ count: count, force: scale.value });
         }
 
