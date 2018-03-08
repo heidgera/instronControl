@@ -103,6 +103,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
         //console.log(data);
       };
 
+      console.log(`Record data point every ${config.pulsesPerInch / parseFloat(pointFreq.value)} steps`);
+
       encoder.onCountChange = (count)=> {
         count = Math.abs(count);
         if (!(count % (config.pulsesPerInch / parseFloat(pointFreq.value)))) {
