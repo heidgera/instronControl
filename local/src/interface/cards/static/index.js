@@ -31,7 +31,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
       var loadDir = parseInt(µ('input[name="staticLoadType"]:checked')[0].value);
       var moveDir = parseInt(µ('input[name="staticDirection"]:checked')[0].value);
-      var target = parseFloat(load.value);
+      var target = parseFloat(load.value) * loadDir;
       var runtime = parseFloat(duration.value);
 
       var dir = loadDir * moveDir;
@@ -45,16 +45,16 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       µ('#staticOL').show = true;
 
       var scaleInt = setInterval(()=> {
-        var weight = scale.value * loadDir;
+        var weight = scale.value;
 
         if ((Date.now() - startTime) / (runtime * 60000) >= 1) finish();
 
         µ('#staticOL').setProgress((Date.now() - startTime) / (runtime * 60000));
 
         if (weight < target * .9) {
-          driver.ramp(Math.abs(driver.currentSpeed - .1) * dir);
+          driver.ramp(Math.abs(driver.currentSpeed - .1) * moveDir);
         } else if (weight > target * 1.1) {
-          driver.ramp(Math.abs(driver.currentSpeed + .1) * dir);
+          driver.ramp(Math.abs(driver.currentSpeed + .1) * moveDir);
         } else {
           driver.ramp(0);
         }
