@@ -52,9 +52,9 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         µ('#staticOL').setProgress((Date.now() - startTime) / (runtime * 60000));
 
         if (weight < target * .9) {
-          driver.ramp(Math.abs(driver.currentSpeed + .1 * dir) * dir);
+          driver.ramp(Math.abs(driver.currentSpeed + .1) * dir);
         } else if (weight > target * 1.1) {
-          driver.ramp(Math.abs(driver.currentSpeed - .1 * dir) * dir);
+          driver.ramp(Math.abs(driver.currentSpeed - .1) * dir);
         } else {
           driver.ramp(0);
         }
@@ -63,6 +63,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       var finish = ()=> {
         clearInterval(scaleInt);
         clearTimeout(endTO);
+        encoder.onCountChange = ()=> {};
+
         µ('#staticOL').show = false;
         driver.stop();
       };
