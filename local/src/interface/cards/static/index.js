@@ -38,9 +38,9 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         var weight = scale.value * loadDir;
 
         if (weight < target * .9) {
-          driver.run((Math.abs(driver.currentSpeed) + .1) * dir);
+          driver.run((Math.abs(driver.currentSpeed) + .01) * dir);
         } else if (weight > target * 1.1) {
-          driver.run(-1 * (Math.abs(driver.currentSpeed) + .1) * dir);
+          driver.run(-1 * (Math.abs(driver.currentSpeed) + .01) * dir);
         } else {
           driver.run(0);
         }
