@@ -30,9 +30,11 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       encoder.reset();
 
       var loadDir = parseInt(µ('input[name="staticLoadType"]:checked')[0].value);
-      var dir = parseInt(µ('input[name="staticDirection"]:checked')[0].value);
+      var moveDir = parseInt(µ('input[name="staticDirection"]:checked')[0].value);
       var target = parseFloat(load.value);
       var runtime = parseFloat(duration.value);
+
+      var dir = loadDir * moveDir;
 
       var lastWeight = 0;
 
