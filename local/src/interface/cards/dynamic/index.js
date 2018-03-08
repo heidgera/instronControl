@@ -48,12 +48,16 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
 
       var data = [];
 
+      var totalExc = config.pulsesPerInch * parseFloat(excur.value);
+
+      console.log(`Total number of counts expected ${totalExc}`);
+
       var updateInt = setInterval(()=> {
         µ('#mainMenu').title = scale.value;
         µ('#dynamicOL').setProgress(encoder.count / (totalExc));
       }, 200);
 
-      var createOrGetFile = (name, parentFolderId, cb)=> {
+      var createOrGetSheet = (name, parentFolderId, cb)=> {
         drive.listFiles({
           parentId: parentFolderId,
           fields: 'files(id)',
@@ -80,27 +84,24 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
       var onEnd = ()=> {
         // handle email, etc
         clearInterval(updateInt);
-        createOrGetFile(
+        createOrGetSheet(
           `DynamicTest ${new Date(Date.now()).toLocaleString('en-US')}`,
           '18YZXzXFi1fkjhyYAcd_4GhH49vT1nL6_',
           (file)=> {
             // have spreadsheetId here
             var cellData = data.map(cell=>[cell.count, cell.force]);
             sheets.putData(file.spreadsheetId, 'Sheet1!A1:E', cellData, ()=> {
-              //console.log(file);
               gmail.sendMessage({
                 from: 'instron.control@gmail.com',
                 to: email.value,
                 subject: 'New Instron DynamicTest Data',
-                body: `New data has been created: ${file.spreadsheetUrl}`,
+                body: `New data have been created: ${file.spreadsheetUrl}`,
               });
             });
           }
         );
         //console.log(data);
       };
-
-      var totalExc = config.pulsesPerInch * parseFloat(excur.value);
 
       encoder.onCountChange = (count)=> {
         count = Math.abs(count);
