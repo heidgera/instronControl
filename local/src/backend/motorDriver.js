@@ -116,14 +116,14 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
         if (val) {
           _this.stop();
           console.log('E-Stop Pressed.');
+          _this.eStopped = val;
           _this.onEStop();
         } else {
           console.log('E-Stop Cleared');
+          _this.eStopped = val;
           _this.onEStopClear();
         }
       }, 50);
-
-      _this.eStopped = !val;
     });
 
     limit.watch((err, val)=> {
