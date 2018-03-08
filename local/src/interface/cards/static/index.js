@@ -49,15 +49,17 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         driver.stop();
       };
 
+      µ('#staticOL').onCancel = finish;
+
       var scaleInt = setInterval(()=> {
         var weight = scale.value * loadDir;
 
         µ('#staticOL').setProgress(((Date.now() - startTime) / 1000) / runtime);
 
         if (weight < target * .9) {
-          driver.ramp((driver.currentSpeed + .01) * dir);
+          driver.ramp(Math.abs(driver.currentSpeed + .01) * dir);
         } else if (weight > target * 1.1) {
-          driver.ramp((driver.currentSpeed - .01) * dir);
+          driver.ramp(Math.abs(driver.currentSpeed - .01) * dir);
         } else {
           driver.ramp(0);
         }

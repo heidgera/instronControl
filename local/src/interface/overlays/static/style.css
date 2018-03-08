@@ -8,7 +8,7 @@
   }
 }
 
-#dynamicOL .spinner {
+#staticOL .spinner {
   display: inline-block;
   background-image: url('../../../../assets/loading.png');
   background-size: cover;
@@ -17,11 +17,11 @@
   margin: 15vmax;
 }
 
-#dynamicOL[show] .spinner {
+#staticOL[show] .spinner {
   animation: 3s infinite linear spin;
 }
 
-#dynamicOL .progressBar {
+#staticOL .progressBar {
   position: relative;
   top:0;
   left: 0;
@@ -36,7 +36,7 @@
   background-color: #777;
 }
 
-#dynamicOL .progress {
+#staticOL .progress {
   position: absolute;
   display: inline-block;
   top: 0;
@@ -47,7 +47,7 @@
   background-color: rgba(0,200,255,.75);
 }
 
-#dynamicOL .cancel {
+#staticOL .cancel {
   background-color: #c00;
   color: #fff;
 }
