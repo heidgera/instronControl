@@ -10,6 +10,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
   Import.onready = ()=> {
     var load = µ('#setPoint');
     var excur = µ('#excursion');
+    var duration = µ('#duration');
 
     load.addEventListener('blur', ()=> {
       if (parseFloat(load.value) > 500) {
@@ -31,26 +32,41 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       var loadDir = parseInt(µ('input[name="staticLoadType"]:checked')[0].value);
       var dir = parseInt(µ('input[name="staticDirection"]:checked')[0].value);
       var target = parseFloat(load.value);
+      var runtime = parseFloat(duration.value);
 
       var lastWeight = 0;
+
+      var startTime = Date.now();
+
+      var endTO = setTimeout(finish, runtime * 1000);
+
+      µ('#staticOL').show = true;
+
+      var finish = ()=> {
+        clearInterval(scaleInt);
+        clearTimeout(endTO);
+        µ('#staticOL').show = false;
+        driver.stop();
+      };
 
       var scaleInt = setInterval(()=> {
         var weight = scale.value * loadDir;
 
+        µ('#staticOL').setProgress(((Date.now() - startTime) / 1000) / runtime);
+
         if (weight < target * .9) {
-          driver.run((Math.abs(driver.currentSpeed) + .01) * dir);
+          driver.ramp((driver.currentSpeed + .01) * dir);
         } else if (weight > target * 1.1) {
-          driver.run(-1 * (Math.abs(driver.currentSpeed) + .01) * dir);
+          driver.ramp((driver.currentSpeed - .01) * dir);
         } else {
-          driver.run(0);
+          driver.ramp(0);
         }
       }, 200);
 
       encoder.onCountChange = (count)=> {
         if (Math.abs(count) > parseFloat(excur.value) * config.pulsesPerInch) {
           //end
-          clearInterval(scaleInt);
-          driver.run(0);
+          finish();
         }
       };
 
@@ -69,8 +85,10 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       } else if (!parseFloat(excur.value)) {
         µ('#growl').message('Please specify a maximum excursion.', 'warn');
         return;
+      } else if (!parseFloat(duration.value)) {
+        µ('#growl').message('Please specify a run time.', 'warn');
+        return;
       }
-
       //// code for running the static loading
       staticTest();
     };
