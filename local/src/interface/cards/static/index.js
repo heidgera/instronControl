@@ -38,12 +38,14 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
       var startTime = Date.now();
 
-      var endTO = setTimeout(finish, runtime * 60000);
+      var endTO = 0;
 
       µ('#staticOL').show = true;
 
       var scaleInt = setInterval(()=> {
         var weight = scale.value * loadDir;
+
+        if ((Date.now() - startTime) / (runtime * 60000) >= 1) finish();
 
         µ('#staticOL').setProgress((Date.now() - startTime) / (runtime * 60000));
 
@@ -62,6 +64,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         µ('#staticOL').show = false;
         driver.stop();
       };
+
+      endTO = setTimeout(finish, runtime * 60000);
 
       µ('#staticOL').onCancel = finish;
 
