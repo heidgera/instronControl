@@ -31,7 +31,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
       var loadDir = parseInt(µ('input[name="staticLoadType"]:checked')[0].value);
       var senseDir = parseInt(µ('input[name="staticDirection"]:checked')[0].value);
-      var target = parseFloat(load.value) * senseDir;
+      var target = parseFloat(load.value);
       var runtime = parseFloat(duration.value);
 
       var lastWeight = 0;
@@ -50,9 +50,9 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         µ('#staticOL').setProgress((Date.now() - startTime) / (runtime * 60000));
 
         if (weight < target * .9) {
-          driver.ramp(driver.currentSpeed - .01, 200);
+          driver.ramp(driver.currentSpeed - .01 * senseDir, 200);
         } else if (weight > target * 1.1) {
-          driver.ramp(driver.currentSpeed + .01, 200);
+          driver.ramp(driver.currentSpeed + .01 * senseDir, 200);
         } else {
           driver.ramp(0, 200);
         }
