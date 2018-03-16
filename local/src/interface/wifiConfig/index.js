@@ -39,16 +39,28 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
     });
 
     µ('#wifiConfig').onready = ()=> {
+      let checkCount = 0;
+      let checkInt = 0;
+
       var checkWifiConnection = ()=> {
+        var found = false;
+
         var interfaces = os.networkInterfaces();
         for (var k in interfaces) {
           for (var k2 in interfaces[k]) {
             var address = interfaces[k][k2];
             if (address.family === 'IPv4' && !address.internal) {
+              found == true;
               µ('#question').style.display = 'none';
               µ('#wifiIcon').style.color = 'currentColor';
+              µ('#growl').message(`Connected to ${µ('#ssids').value}`, 'success');
             }
           }
+        }
+
+        if (checkCount++ > 10) {
+          clearInterval(checkInt);
+          µ('#growl').message(`Unable to connect to ${µ('#ssids').value}`, 'warn');
         }
       };
 
@@ -92,7 +104,9 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
             return;
           }
 
-          µ('#growl').message(`Connected to ${µ('#ssids').value}`, 'success');
+          µ('#growl').message(`Attempting connection to ${µ('#ssids').value}`, 'warn');
+          checkCount = 0;
+          checkInt = setInterval(checkWifiConnection, 1000);
           loading.parentElement.removeChild(loading);
         });
 
