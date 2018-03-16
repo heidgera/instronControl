@@ -31,8 +31,7 @@ obtain(['child_process', './../piFig/src/wifi.js'], ({ exec }, wifi)=> {
   exports.connect = ({ ssid, password }, cb)=> {
     if (process.platform != 'darwin') {
       wifi.configure({ ssid: ssid, password: password });
-      exec('sudo service networking restart', (err, std, stderr)=> {
-        //console.log(std);
+      exec('wpa_cli -i wlan0 reconfigure', (err, std, stderr)=> {
         cb(err);
       });
     } else {
