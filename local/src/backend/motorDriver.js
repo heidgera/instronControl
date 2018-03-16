@@ -27,15 +27,15 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
       speed = Math.min(1, Math.max(-1, speed));
       _this.currentSpeed = speed;
 
-      if (speed >= 0) writeToController(0, Math.floor(speed * 127));
-      else writeToController(1, Math.floor(Math.abs(speed) * 127));
+      if (speed >= 0) writeToController(1, Math.floor(speed * 127));
+      else writeToController(0, Math.floor(Math.abs(speed) * 127));
     };
 
     var writeToController = (command, data)=> {
       if (data > 0 || data < 0) stopPin.writeSync(0);
       else stopPin.writeSync(1);
 
-      drive.send([128, command, data, (128 + command + data) & 0b01111111]);
+      drive.send([128, command, data, (128 + command + data) & 0b01111111]);//9441
     };
 
     _this.run = (speed) => {
