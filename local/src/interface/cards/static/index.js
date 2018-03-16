@@ -51,10 +51,10 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
         µ('#staticOL').setProgress((Date.now() - startTime) / (runtime * 60000));
 
-        if (weight < target * .9) {
-          driver.ramp(driver.currentSpeed - .1 * moveDir);
-        } else if (weight > target * 1.1) {
-          driver.ramp(driver.currentSpeed + .1 * moveDir);
+        if (weight < target * .9 * moveDir) {
+          driver.ramp(driver.currentSpeed - .1 * moveDir, 200);
+        } else if (weight > target * 1.1 * moveDir) {
+          driver.ramp(driver.currentSpeed + .1 * moveDir, 200);
         } else {
           driver.ramp(0, 200);
         }
