@@ -34,7 +34,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       var target = parseFloat(load.value);
       var runtime = parseFloat(duration.value);
 
-      var dir = loadDir * moveDir;
+      //var dir = loadDir * moveDir;
 
       var lastWeight = 0;
 
@@ -51,12 +51,15 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
         µ('#staticOL').setProgress((Date.now() - startTime) / (runtime * 60000));
 
+        var dir = moveDir;
+        if (driver.currentSpeed < 0) dir = -1 * moveDir;
+
         if (weight < target * .9) {
           driver.ramp(Math.abs(driver.currentSpeed - .1) * dir);
         } else if (weight > target * 1.1) {
           driver.ramp(Math.abs(driver.currentSpeed + .1) * dir);
         } else {
-          driver.ramp(0);
+          driver.ramp(0, 200);
         }
       }, 200);
 

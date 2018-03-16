@@ -54,6 +54,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
               µ('#question').style.display = 'none';
               µ('#wifiIcon').style.color = 'currentColor';
               µ('#growl').message(`Connected to ${µ('#ssids').value}`, 'success');
+              clearInterval(checkInt);
             }
           }
         }
