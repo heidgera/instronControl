@@ -42,28 +42,31 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
       let checkCount = 0;
       let checkInt = 0;
 
-      var checkWifiConnection = ()=> {
-        var found = false;
+      var checkWifiConnection = (err)=> {
+        if (!err) {
+          var found = false;
 
-        var interfaces = os.networkInterfaces();
-        for (var k in interfaces) {
-          for (var k2 in interfaces[k]) {
-            var address = interfaces[k][k2];
-            if (address.family === 'IPv4' && !address.internal) {
-              found == true;
-              µ('#question').style.display = 'none';
-              µ('#wifiIcon').style.color = 'currentColor';
-              var curSSID = wifi.getSSID();
-              µ('#growl').message(`Connected to ${curSSID}`, 'success');
-              clearInterval(checkInt);
+          var interfaces = os.networkInterfaces();
+          for (var k in interfaces) {
+            for (var k2 in interfaces[k]) {
+              var address = interfaces[k][k2];
+              if (address.family === 'IPv4' && !address.internal) {
+                found == true;
+                µ('#question').style.display = 'none';
+                µ('#wifiIcon').style.color = 'currentColor';
+                var curSSID = wifi.getSSID();
+                µ('#growl').message(`Connected to ${curSSID}`, 'success');
+                clearInterval(checkInt);
+              }
             }
+          }
+
+          if (checkCount++ > 10) {
+            clearInterval(checkInt);
+            µ('#growl').message(`Unable to connect to ${µ('#ssids').value}`, 'warn');
           }
         }
 
-        if (checkCount++ > 10) {
-          clearInterval(checkInt);
-          µ('#growl').message(`Unable to connect to ${µ('#ssids').value}`, 'warn');
-        }
       };
 
       wifi.restart(checkWifiConnection);
