@@ -69,10 +69,10 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
 
       };
 
-      wifi.restart(()=>{
+      wifi.restart(()=> {
         clearInterval(checkInt);
         checkInt = setInterval(checkWifiConnection, 1000);
-      }));
+      });
 
       µ('#ssids').disabled = true;
 
