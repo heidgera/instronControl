@@ -45,10 +45,6 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
       var scaleInt = setInterval(()=> {
         var weight = scale.value * loadDir;
 
-        if ((Date.now() - startTime) / (runtime * 60000) >= 1) finish();
-
-        µ('#staticOL').setProgress((Date.now() - startTime) / (runtime * 60000));
-
         var inc = (target - weight) / (target * 100);
 
         let curSpeed = driver.currentSpeed;
@@ -62,10 +58,17 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         } else {
           driver.ramp(0, 200);
         }
+      }, 500);
+
+      var olUpdateInt = setInterval(()=> {
+        if ((Date.now() - startTime) / (runtime * 60000) >= 1) finish();
+
+        µ('#staticOL').setProgress((Date.now() - startTime) / (runtime * 60000));
       }, 200);
 
       var finish = ()=> {
         clearInterval(scaleInt);
+        clearInterval(olUpdateInt);
         clearTimeout(endTO);
         encoder.onCountChange = ()=> {};
 
