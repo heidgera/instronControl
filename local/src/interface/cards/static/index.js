@@ -51,14 +51,14 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
         if (weight < target - .2) {
           if (curSpeed * senseDir * loadDir > 0) curSpeed = 0;
-          driver.ramp(curSpeed - .01 * senseDir * loadDir, 200);
+          driver.ramp(curSpeed - .005 * senseDir * loadDir, 200);
         } else if (weight > target + .2) {
           if (curSpeed * senseDir * loadDir < 0) curSpeed = 0;
-          driver.ramp(curSpeed + .01 * senseDir * loadDir, 200);
+          driver.ramp(curSpeed + .005 * senseDir * loadDir, 200);
         } else {
           driver.ramp(0, 200);
         }
-      }, 750);
+      }, 300);
 
       var olUpdateInt = setInterval(()=> {
         if ((Date.now() - startTime) / (runtime * 60000) >= 1) finish();
