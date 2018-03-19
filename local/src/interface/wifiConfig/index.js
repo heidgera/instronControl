@@ -53,7 +53,8 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
               found == true;
               µ('#question').style.display = 'none';
               µ('#wifiIcon').style.color = 'currentColor';
-              µ('#growl').message(`Connected to ${µ('#ssids').value}`, 'success');
+              var curSSID = wifi.getSSID();
+              µ('#growl').message(`Connected to ${curSSID}`, 'success');
               clearInterval(checkInt);
             }
           }
@@ -65,7 +66,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
         }
       };
 
-      checkWifiConnection();
+      wifi.restart(checkWifiConnection);
 
       µ('#ssids').disabled = true;
 

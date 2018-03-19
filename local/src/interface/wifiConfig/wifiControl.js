@@ -1,6 +1,6 @@
 var process = require('electron').remote.process;
 
-obtain(['child_process', './../piFig/src/wifi.js'], ({ exec }, wifi)=> {
+obtain(['child_process', './../piFig/src/wifi.js'], ({ exec, execSync }, wifi)=> {
 
   exports.scan = (cb)=> {
     if (process.platform == 'darwin') {
@@ -28,12 +28,20 @@ obtain(['child_process', './../piFig/src/wifi.js'], ({ exec }, wifi)=> {
     }
   };
 
+  exports.getSSID = ()=> {
+    return execSync('iwgetid -r');
+  };
+
+  exports.restart = (cb)=> {
+    exec('wpa_cli -i wlan0 reconfigure', (err, std, stderr)=> {
+      cb(err);
+    });
+  };
+
   exports.connect = ({ ssid, password }, cb)=> {
     if (process.platform != 'darwin') {
       wifi.configure({ ssid: ssid, password: password });
-      exec('wpa_cli -i wlan0 reconfigure', (err, std, stderr)=> {
-        cb(err);
-      });
+      exports.restart(cb);
     } else {
       cb();
     }
