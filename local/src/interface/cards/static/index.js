@@ -58,7 +58,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
         } else {
           driver.ramp(0, 200);
         }
-      }, 500);
+      }, 750);
 
       var olUpdateInt = setInterval(()=> {
         if ((Date.now() - startTime) / (runtime * 60000) >= 1) finish();
