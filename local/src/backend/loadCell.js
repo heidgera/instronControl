@@ -1,7 +1,7 @@
 obtain(['µ/serial.js', 'µ/utilities.js'], ({ Serial }, { averager, round })=> {
   exports.Scale = function () {
     var serial = new Serial();
-    this.average = new averager(10);
+    this.average = new averager(2);
 
     this.units = '';
 
