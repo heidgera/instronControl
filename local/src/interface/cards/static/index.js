@@ -49,10 +49,10 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, scale, con
 
         let curSpeed = driver.currentSpeed;
 
-        if (weight < target * .9) {
+        if (weight < target - .2) {
           if (curSpeed * senseDir * loadDir > 0) curSpeed = 0;
           driver.ramp(curSpeed - .01 * senseDir * loadDir, 200);
-        } else if (weight > target * 1.1) {
+        } else if (weight > target + .2) {
           if (curSpeed * senseDir * loadDir < 0) curSpeed = 0;
           driver.ramp(curSpeed + .01 * senseDir * loadDir, 200);
         } else {
