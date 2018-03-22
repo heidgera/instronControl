@@ -122,7 +122,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { driver, encoder, config }, 
           var onRelease = (e)=> {
             e.preventDefault();
             driver.ramp(0, 200);
-            µ('#growl').message(encoder.count, 'success');
+            //µ('#growl').message(encoder.count, 'success');
           };
 
           up.addEventListener('touchstart', onPress);
