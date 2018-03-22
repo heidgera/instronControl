@@ -25,6 +25,7 @@ obtain(['µ/serial.js', 'µ/utilities.js'], ({ Serial }, { averager, round })=> 
       this.value = newRead;
 
       this.onRead();
+      console.log(newRead);
 
       this.units = data.substr(14, 15);
     };
