@@ -103,7 +103,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
 
     _this.onEStopClear = ()=> {};
 
-    _this.onLimit = ()=> {};
+    _this.onLimit = (which)=> {};
 
     _this.onLimitClear = ()=> {};
 
@@ -133,7 +133,7 @@ obtain(['onoff', 'µ/serial.js', 'µ/utilities.js'], ({ Gpio }, { Serial }, { si
           _this.limited = _this.currentSpeed / Math.abs(_this.currentSpeed);
           _this.stop();
           console.log('Limit Pressed.');
-          _this.onLimit();
+          _this.onLimit(_this.limited);
         } else {
           console.log('Limit Cleared');
           _this.limited = 0;

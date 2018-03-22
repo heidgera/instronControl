@@ -22,6 +22,14 @@ obtain(obtains, ({ Button, Dropdown, Card, Menu }, wifi, { encoder, driver })=> 
     µ('#growl').message('E-Stop released', 'success');
   };
 
+  driver.onLimit = (which)=> {
+    µ('#growl').message(`${which > 0 ? 'Top' : 'Bottom'} limit reached`, 'warn', true);
+  };
+
+  driver.onLimitClear = ()=> {
+    µ('#growl').message('Limit switch cleared', 'success');
+  };
+
   exports.app.start = ()=> {
     if (process.platform == 'darwin') {
       µ('.rotator')[0].className = 'normal';
