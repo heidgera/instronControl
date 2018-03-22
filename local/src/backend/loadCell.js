@@ -19,10 +19,10 @@ obtain(['µ/serial.js', 'µ/utilities.js'], ({ Serial }, { averager, round })=> 
     serial.open({ manufacturer: 'FTDI', baud: 9600 });
 
     serial.onMessage = (data)=> {
+      var pol = (data.toString()[6] == '-') ? -1 : 1;
+      data = data.toString();
       console.log(data[6]);
       console.log(data);
-      var pol = (data[6] == '-') ? -1 : 1;
-      data = data.toString();
       var newRead = pol * parseFloat(data.substring(7, 14));
       this.value = newRead;
 
