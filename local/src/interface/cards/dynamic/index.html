@@ -4,18 +4,24 @@
   <h1>Set Initial Position</h1>
   <but-ton class='jogUp'>Jog Up</but-ton>
   <but-ton class='jogDown'>Jog Down</but-ton><br /><br />
-  <div class='sideBySide'>
+  <div class='sideBySide' id='dirControls'>
     <span>
-      <h1>Direction</h1>
-      <input id='dynamicDirUp' type='radio' name='dynamicDirection' value='1'>
-      <label for="dynamicDirUp">Up</label>
-      <input id='dynamicDirDown' type='radio' name='dynamicDirection' value='-1'>
-      <label for="dynamicDirDown">Down</label><br /><br />
+      <h2>Direction</h2>
+      <div>
+        <input id='dynamicDirUp' type='radio' name='dynamicDirection' value='1'>
+        <label for="dynamicDirUp">Up</label>
+        <input id='dynamicDirDown' type='radio' name='dynamicDirection' value='-1'>
+        <label for="dynamicDirDown">Down</label>
+      </div>
+      <div>
+        <input id='dynamicDirDown' type='checkbox' name='dynamicReturn'>
+        <label for="dynamicDirDown">Return</label><br /><br />
+      </div>
     </span>
     <span>
-      <h1>Max speed</h1>
+      <h2>Max speed</h2>
       <input id='speed' type="range" min=0 max=100 value=25></input><span id='speedVal'>100%</span><br /><br />
-    </span>
+    </span><br/>
   </div>
   <h1>Excursion</h1>
   <input id='totExc' type='text'  method='numpad' placeholder="0-30 inches"></input><br /><br />

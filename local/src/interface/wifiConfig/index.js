@@ -49,21 +49,28 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
           var interfaces = os.networkInterfaces();
           for (var k in interfaces) {
             for (var k2 in interfaces[k]) {
-              var address = interfaces[k][k2];
-              if (address.family === 'IPv4' && !address.internal) {
+              var ad = interfaces[k][k2];
+              ad.misconfig = ad.address && ad.address.startsWith('169.');
+              if (ad.family === 'IPv4' && !ad.internal && !ad.misconfig) {
                 found == true;
                 µ('#question').style.display = 'none';
                 µ('#wifiIcon').style.color = 'currentColor';
                 var curSSID = wifi.getSSID();
+                if (curSSID) µ('#wifiMenu').title = `Connected to ${curSSID}`;
                 µ('#growl').message(`Connected to ${curSSID}`, 'success');
                 clearInterval(checkInt);
+              } else if (ad.misconfig) {
+                wifi.restart(()=> {
+                  clearInterval(checkInt);
+                  checkInt = setInterval(checkWifiConnection, 1000);
+                });
               }
             }
           }
 
           if (checkCount++ > 10) {
             clearInterval(checkInt);
-            µ('#growl').message(`Unable to connect to ${µ('#ssids').value}`, 'warn');
+            µ('#growl').message(`Unable to connect to Wifi Network`, 'warn');
           }
         }
 

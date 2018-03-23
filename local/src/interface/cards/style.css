@@ -9,7 +9,7 @@ body {
 	height: calc(100% - var(--menu-hgt));
 	text-align: center;
   transition: height .5s;
-  font-size: 1.7em;
+  font-size: 1.6em;
 }
 
 .mainContainer.inputActive {

@@ -29,7 +29,9 @@ obtain(['child_process', './../piFig/src/wifi.js'], ({ exec, execSync }, wifi)=>
   };
 
   exports.getSSID = ()=> {
-    return execSync('iwgetid -r');
+    if (process.platform != 'darwin') {
+      return execSync('iwgetid -r');
+    } else return execSync(`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`);
   };
 
   exports.restart = (cb)=> {

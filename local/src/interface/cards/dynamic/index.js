@@ -4,15 +4,23 @@ var obtains = [
   `µ/components`,
   'µ/google',
   `./src/backend/${process.platform == 'darwin' ? 'dummy.js' : ''}`,
+  'fs',
 ];
 
-obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { driver, encoder, scale, config }, { Import })=> {
+obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { driver, encoder, scale, config }, fs, { Import })=> {
+
+  var conf = {};
+  if (fs.existsSync('./config.json')) {
+    conf = JSON.parse(fs.readFileSync(`./config.json`));
+  }
 
   Import.onready = ()=> {
     var excur = µ('#totExc');
     var pointFreq = µ('#pointFreq');
     var email = µ('#email');
     var speed = µ('#speed', Import.refDiv);
+
+    if (conf.email) email.value = conf.email;
 
     var emailPattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
 
@@ -41,6 +49,8 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
     };
 
     var dynamicTest = ()=> {
+      var testReturn = µ('input[name="dynamicReturn"]')[0].checked;
+
       encoder.reset();
       scale.tare();
 
@@ -105,24 +115,30 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
 
       console.log(`Record data point every ${Math.round(config.pulsesPerInch / parseFloat(pointFreq.value))} steps`);
 
+      var dir = parseInt(µ('input[name="dynamicDirection"]:checked')[0].value);
+      console.log('dir');
+
+      var flipFlag = false;
+
       encoder.onCountChange = (count)=> {
         count = Math.abs(count);
         if (!(Math.abs(count) % (Math.round(config.pulsesPerInch / parseFloat(pointFreq.value))))) {
           data.push({ count: count, force: scale.value });
         }
 
-        if (count >= totalExc) {
+        if ((count >= totalExc && !testReturn) || (testReturn && flipFlag && count <= 0)) {
           driver.ramp(0, 100);
           encoder.onCountChange = ()=> {};
 
           µ('#dynamicOL').show = false;
           onEnd();
+        } else if (testReturn && count >= totalExc) {
+          driver.ramp(-1 * dir * config.maxSpeed * (speed.value / 100.), 1000);
+          flipFlag = true;
         }
 
       };
 
-      var dir = parseInt(µ('input[name="dynamicDirection"]:checked')[0].value);
-      console.log('dir');
       driver.ramp(dir * config.maxSpeed * (speed.value / 100.), 500);
     };
 
@@ -140,6 +156,10 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
         µ('#growl').message('Enter valid email address', 'warn');
         return;
       }
+
+      conf.email = email.value;
+
+      fs.writeFileSync('./config.json', JSON.stringify(conf));
 
       //// code for running the dynamic test
       dynamicTest();

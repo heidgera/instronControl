@@ -3,11 +3,27 @@ input#email {
   width: 20em;
 }
 
+#dirControls {
+  height: 6em;
+}
+
 h1 {
+  display: block;
   border-bottom: 1px solid #ccc;
   width: 100%;
   font-size: 1em;
   font-weight: normal;
+}
+
+h2 {
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+label {
+  font-size: .75em;
 }
 
 
