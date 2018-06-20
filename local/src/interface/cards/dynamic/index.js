@@ -132,7 +132,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
 
           µ('#dynamicOL').show = false;
           onEnd();
-        } else if (testReturn && count >= totalExc) {
+        } else if (testReturn && count >= totalExc && !flipFlag) {
           driver.ramp(-1 * dir * config.maxSpeed * (speed.value / 100.), 1000);
           flipFlag = true;
         }
