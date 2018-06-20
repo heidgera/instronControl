@@ -150,6 +150,8 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
       µ('#wifiOpts').onClosed = ()=> {
         µ('#wifiIcon').classList.remove('opened');
       };
+
+      checkInt = setInterval(checkWifiConnection, 1000);
     };
   };
 });
