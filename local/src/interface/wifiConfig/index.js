@@ -57,7 +57,7 @@ obtain(obtains, (wifi, { Button, Card, Dropdown, Menu }, os, { Import })=> {
                 µ('#wifiIcon').style.color = 'currentColor';
                 var curSSID = wifi.getSSID();
                 if (curSSID) µ('#wifiMenu').title = `Connected to ${curSSID}`;
-                µ('#growl').message(`Connected to ${curSSID}`, 'success');
+                µ('#growl').message(`Connected at ${ad.address}`, 'success');
                 clearInterval(checkInt);
               } else if (ad.misconfig) {
                 wifi.restart(()=> {
