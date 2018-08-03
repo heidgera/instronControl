@@ -111,6 +111,12 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
           }
         );
         //console.log(data);
+
+        scale.onRead = ()=> {};
+      };
+
+      scale.onRead = ()=> {
+        data.push({ count: encoder.count / config.pulsesPerInch, force: scale.value });
       };
 
       console.log(`Record data point every ${Math.round(config.pulsesPerInch / parseFloat(pointFreq.value))} steps`);
@@ -123,7 +129,7 @@ obtain(obtains, ({ Button, Card, Dropdown, Menu }, { drive, sheets, gmail }, { d
       encoder.onCountChange = (count)=> {
         count = Math.abs(count);
         if (!(Math.abs(count) % (Math.round(config.pulsesPerInch / parseFloat(pointFreq.value))))) {
-          data.push({ count: count, force: scale.value });
+          data.push({ count: count / config.pulsesPerInch, force: scale.value });
         }
 
         if ((count >= totalExc && !testReturn) || (testReturn && flipFlag && count <= 0)) {
